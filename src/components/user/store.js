@@ -6,12 +6,40 @@ const get = async () => {
     return user
 }
 
+
+const getFilter = async(id) => {
+    const user = await Model.findById({ _id: id})
+    return user
+}
+
 const add = async (user) => {
     const newUser =  new Model(user)
-    return  newUser.save
+    return  newUser.save()
+}
+
+const update = async(id, user) => {
+    let retrivedUser = await Model.findById({ _id: id})
+
+    let entrie = Object.entries(retrivedUser)
+    entrie = Object.entries(user)
+
+    retrivedUser = Object.fromEntries(entrie)
+
+    const updatedUser = await Model.findByIdAndUpdate(id, retrivedUser)
+    return updatedUser
+}
+
+
+const remove = async(id) => {
+    const user = await Model.findByIdAndDelete({ _id: id })
+    return user
 }
 
 module.exports = {
     get,
-    add
+    getFilter,
+    add,
+    update,
+    remove
+
 }
