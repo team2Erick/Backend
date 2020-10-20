@@ -17,7 +17,6 @@ passport.use(new GoogleStrategy(
         console.log(profile)
         const user = {
             name: profile._json.name,
-            username: profile._json.given_name,
             email: profile._json.email,
             password: profile.id
         }
@@ -27,7 +26,7 @@ passport.use(new GoogleStrategy(
             return done(false, currentUser)
         }
         
-        const newUser = await controller.createUser(user.name, user.username, user.email, user.password)
+        const newUser = await controller.createUser(user.name, user.email, user.password)
 
         return done(false, newUser)
     }

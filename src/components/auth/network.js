@@ -82,6 +82,34 @@ router.get('/google/callback', (req, res, next) => {
     })(req, res, next)
 })
 
-router.get('/facebook', passport.authenticate('facebook' , { scope: ['profile', 'email', 'openid']}))
+router.get('/facebook', passport.authenticate('facebook'))
+
+router.get('/facebook/callback', (req, res, next) => {
+    passport.authenticate('facebook', { session: false }, (error, user) => {
+        if(!user){
+            next(boom.unauthorized('Unexpected error'))
+        }
+    
+        const { _id: id, name, email } = user;
+                            
+        const payload = {
+            sub: id,
+            name,
+            email
+        }
+    
+        const token = jwt.sign(payload, config.jwt_key, {
+            expiresIn: '15m'
+        })
+    
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false,
+        })
+    
+        return res.status(201).json({ token, "System message":"user succesfully logged in with facebook" })
+
+    })(req, res, next)
+})
 
 module.exports = router

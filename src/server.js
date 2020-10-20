@@ -14,4 +14,4 @@ router(app)
 
 
 
-app.listen(config.port, console.log(`Server listen at http://localhost:${config.port}`))
+app.listen(config.port, console.log(`http://localhost:${config.port}`))
