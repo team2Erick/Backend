@@ -4,7 +4,7 @@ const bcryp = require('bcrypt')
 const boom = require('@hapi/boom')
 
 
-const Model = require('../store/models/user')
+const Model = require('../store/models/artist')
 
 
 passport.use(

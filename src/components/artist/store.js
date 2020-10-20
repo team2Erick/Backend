@@ -1,4 +1,4 @@
-const Model = require('../../store/models/user')
+const Model = require('../../store/models/artist')
 
 
 const get = async () => {
@@ -35,15 +35,6 @@ const remove = async(id) => {
     return user
 }
 
-const addSong = async(id, songs) => {
-    const user = await Model.findById({ _id: id })
-    
-    user.favorites.push(songs)
-    console.log(user.favorites[0])
-    user.save()
-    
-    return user
-}
 
 module.exports = {
     get,
@@ -51,6 +42,4 @@ module.exports = {
     add,
     update,
     remove,
-    addSong
-
 }

@@ -70,7 +70,7 @@ const updateUser = async(name, email, password, age, country, id) => {
 
         const finalResponse = {
             user,
-            "System": "User succesfully created"
+            "System": "User succesfully Updated"
         }
 
         return finalResponse
@@ -93,11 +93,25 @@ const deleteUser = async(id) => {
     }
 }
 
+const addFavorite = async (id, favorites) => {
+    try {
+        if(!favorites){
+            throw new Error("Missing Data")
+        }
+
+        const songs = await store.addSong(id, favorites)
+        return songs
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUser,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    addFavorite
 
 }

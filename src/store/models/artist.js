@@ -6,15 +6,10 @@ const mySchema = new Schema({
     name: String,
     email: String,
     password: String,
-    age: Number,
     country: String,
-    favorites:[String],
-    playlist: {
-        type: Schema.ObjectId,
-        ref: "Playlist",
-    }
+    record: String,
 })
 
-const userModel = mongoose.model('User', mySchema)
+const userModel = mongoose.model('Artist', mySchema)
 
 module.exports = userModel
