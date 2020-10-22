@@ -2,13 +2,25 @@ const express = require('express')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
+const multer = require('multer')
+const path = require('path')
 const controller = require('./controller')
 const response = require('../../network/response')
 const config = require('../../config/index')
 
-require('../../strategies/artistAuth')
+//require('./authArtist')
 
-router.get('/getartist', async(req, res) => {
+const storage = multer.diskStorage({
+    destination: 'public/files',
+    filename: function (req, file, cb) {
+      cb(null, file.filename + '-' + Date.now() +
+          path.extname(file.originalname))
+    }
+  })
+  
+const upload = multer({ storage: storage })
+
+router.get('/getall', async(req, res) => {
     try {
         const artists = await controller.getAllArtist()
         response.success(req, res, artists, 201)
@@ -26,22 +38,22 @@ router.get('/getartist/:id', async(req, res) => {
     }
 })
 
-router.post('/signup', async (req, res) => {
+router.post('/signup',upload.single('image') ,async (req, res) => {
     try {
         const { name, email, password, country, record } = req.body
 
-        const newArtist = await controller.createArtist(name, email, password, country, record)
+        const newArtist = await controller.createArtist(name, email, password, country, record, req.file)
         response.success(req, res, newArtist, 201)
     } catch (error) {
         response.error(req, res, error.message, 500, error)
     }
 })
 
-router.put('/update/:id', async(req, res) => {
+router.put('/update/:id',upload.single('image')  ,async(req, res) => {
     try {
         const { name, email, password, country, record } = req.body
         
-        const updatedArtist = await controller.updateArtist(name, email, password, country, record, req.params.id)
+        const updatedArtist = await controller.updateArtist(name, email, password, country, record, req.file ,req.params.id)
         response.success(req, res, updatedArtist, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)

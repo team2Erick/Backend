@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }))
 
 router(app)
 
+app.use('/app', express.static('src/public'))
 
 
 app.listen(config.port, console.log(`http://localhost:${config.port}`))

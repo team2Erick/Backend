@@ -1,6 +1,6 @@
 const store = require('./store')
 const bcrypt = require('bcrypt')
-
+const config = require('../../config/index')
 
 const getAllUsers = async() => {
     try {
@@ -20,22 +20,30 @@ const getUser = async(id) => {
     }
 }
 
-const createUser = async (name, email, password, age, country) => {
+const createUser = async (name, email, password, age, country, gender ,image) => {
     try {
-        if (!name || !email || !password || !age || !country){
+        if (!name || !email || !password || !age || !country || !gender){
             throw new Error("Missing Data")
         }
-
+        
+        
+        let fileUrl = ""
+        if (image){
+            fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
+        }
+        
         const hashedPassword = await bcrypt.hash(password, 8)
 
         const user =  {
             name,
             email,
+            image: fileUrl,
             age,
             country,
             password: hashedPassword
         }
 
+        console.log(user.password)
         const newUser = await store.add(user)
 
         const finalResponse = {
@@ -50,10 +58,15 @@ const createUser = async (name, email, password, age, country) => {
     }
 }
 
-const updateUser = async(name, email, password, age, country, id) => {
+const updateUser = async(name, email, password, age, country, gender ,image ,id) => {
     try {
-        if (!name || !email || !password || !age || !country){
+        if (!name || !email || !password || !age || !country || !gender){
             throw new Error("Missing Data")
+        }
+
+        let fileUrl = ""
+        if (image){
+            fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
         }
 
         const hashedPassword = await bcrypt.hash(password, 8)
@@ -61,6 +74,7 @@ const updateUser = async(name, email, password, age, country, id) => {
         const user =  {
             name,
             email,
+            image: fileUrl,
             age,
             country,
             password: hashedPassword

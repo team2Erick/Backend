@@ -15,8 +15,7 @@ router.post('/login', (req, res, next) => {
     passport.authenticate('basic',async  (error, user) => {
         try {
             if(error || !user){
-                console.log(user)
-                throw new Error("User not found")
+                throw new Error("User not found", error)
             }
 
             req.login(user, { session: false }, (error) => {

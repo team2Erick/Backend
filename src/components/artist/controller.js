@@ -1,5 +1,6 @@
 const store = require('./store')
 const bcrypt = require('bcrypt')
+const config = require('../../config/index')
 
 
 const getAllArtist = async() => {
@@ -20,20 +21,26 @@ const getArtist = async(id) => {
     }
 }
 
-const createArtist = async (name, email, password, country, record) => {
+const createArtist = async (name, email, password, country, record,  image) => {
     try {
-        if (!name || !email || !password || !record || !country){
+        if (!name || !email || !password || !record || !country  ){
             throw new Error("Missing Data")
         }
+
+        let fileUrl = ""
+            if (image){
+                fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
+            }
 
         const hashedPassword = await bcrypt.hash(password, 8)
 
         const artist =  {
             name,
             email,
-            record,
+            password: hashedPassword,
             country,
-            password: hashedPassword
+            record,
+            image: fileUrl, 
         }
 
         const newArtist = await store.add(artist)
@@ -50,10 +57,15 @@ const createArtist = async (name, email, password, country, record) => {
     }
 }
 
-const updateArtist = async(name, email, password, country, record, id) => {
+const updateArtist = async(name, email, password, country, record,image, id) => {
     try {
-        if (!name || !email || !password || !record || !country){
+        if (!name || !email || !password || !record || !country ){
             throw new Error("Missing Data")
+        }
+
+        let fileUrl = ""
+        if (image){
+            fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
         }
 
         const hashedPassword = await bcrypt.hash(password, 8)
@@ -61,9 +73,10 @@ const updateArtist = async(name, email, password, country, record, id) => {
         const artist =  {
             name,
             email,
-            record,
+            password: hashedPassword,
             country,
-            password: hashedPassword
+            record,
+            image: fileUrl, 
         }
 
         const updatedArtist = await store.update(id, artist)

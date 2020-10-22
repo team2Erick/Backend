@@ -5,23 +5,30 @@ const boom = require('@hapi/boom')
 
 
 const Model = require('../store/models/user')
+const Modelartist = require('../store/models/artist')
 
 
 passport.use(
     new BasicStrategy(async ( email, password, cb) => {
         try{
-            const user = await Model.find({email: email})
+            let user = await Model.find({email: email}) 
 
-            
-            if(!user){
-                return cb(boom.unauthorized(), false)
+            if(user.length === 0){
+                user = await Modelartist.find({email: email})
+                if(!user){
+                    return cb(boom.unauthorized(), false)
+                }
             }
+            
+            /* if(!user){
+                return cb(boom.unauthorized(), false)
+            } */
             
             if(!(await bcryp.compare(password, user[0].password))){
                 return cb(boom.unauthorized(), false)
             }
             
-
+          
             delete user.password
 
             return cb(null, user)
