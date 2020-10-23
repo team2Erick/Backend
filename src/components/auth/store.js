@@ -11,7 +11,12 @@ const add = async (user) => {
     return newUser.save() 
 }
 
+const addExtraInfo = async(user, id) => {
+    const data = Model.findByIdAndUpdate({_id: id}, user)
+    return data
+}
 module.exports = {
     get,
-    add
+    add,
+    addExtraInfo
 }

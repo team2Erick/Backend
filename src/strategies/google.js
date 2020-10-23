@@ -14,11 +14,11 @@ passport.use(new GoogleStrategy(
 
     async (token, tokenSecret, profile, done) => {
         
-        console.log(profile)
         const user = {
             name: profile._json.name,
             email: profile._json.email,
-            password: profile.id
+            password: profile.id,
+            image: profile._json.picture
         }
         const currentUser = await controller.getUser(user.email)
         
@@ -26,7 +26,7 @@ passport.use(new GoogleStrategy(
             return done(false, currentUser)
         }
         
-        const newUser = await controller.createUser(user.name, user.email, user.password)
+        const newUser = await controller.createUser(user.name, user.email, user.password, user.image)
 
         return done(false, newUser)
     }

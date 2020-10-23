@@ -7,7 +7,7 @@ const mySchema = new Schema({
     email: String,
     image: String,
     password: String,
-    age: Number,
+    age: Date,
     country: String,
     gender: String,
     favorites:[String],

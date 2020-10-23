@@ -43,7 +43,6 @@ const createUser = async (name, email, password, age, country, gender ,image) =>
             password: hashedPassword
         }
 
-        console.log(user.password)
         const newUser = await store.add(user)
 
         const finalResponse = {

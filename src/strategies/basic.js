@@ -20,9 +20,7 @@ passport.use(
                 }
             }
             
-            /* if(!user){
-                return cb(boom.unauthorized(), false)
-            } */
+
             
             if(!(await bcryp.compare(password, user[0].password))){
                 return cb(boom.unauthorized(), false)

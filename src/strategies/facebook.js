@@ -7,34 +7,40 @@ const controller = require('../components/auth/controller')
 passport.use(
     new FacebookStrategy(
         {
-            clientID: "453237188990617",
-            clientSecret: "adc5d721d8fcf028ff0f4fcdf0d9de13",
+            clientID: config.facebook_id,
+            clientSecret: config.facebook_secret,
             callbackURL: 'http://localhost:3000/auth/facebook/callback',
-            profilerFields: ["id","displayName", "email"]
+            profileFields: ["id","displayName" ,"gender", "birthday", "email", "first_name",  "last_name", ]
         },
 
        async (accessToken, refreshToken, profile, done) => {
             
+            try {
+                
+                console.log(profile)
+                
+                const emailB = profile.email
+                ? profile.email
+                : `${profile.id}@facebook.com`;
+                
+                const user = {
+                    name : profile.displayName,
+                    email: profile._json.email,
+                    password: profile.id
+                }
+                
+                const currentUser = await controller.getUser(user.email)
             
-            const emailB = profile.email
-            ? profile.email
-            : `${profile.id}@facebook.com`;
-            
-            const user = {
-                name : profile.displayName,
-                email: emailB,
-                password: profile.id
-            }
-            
-            const currentUser = await controller.getUser(user.email)
+                if(currentUser){
+                    return done(false, currentUser)
+                }
+                
+                const newUser = await controller.createUser(user.name, user.email, user.password)
         
-            if(currentUser){
-                return done(false, currentUser)
+                return done(false, newUser)
+            } catch (error) {
+                return done(error)
             }
-            
-            const newUser = await controller.createUser(user.name, user.email, user.password)
-    
-            return done(false, newUser)
         }
     )
 )

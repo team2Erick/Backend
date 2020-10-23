@@ -1,10 +1,24 @@
 const express = require('express')
 const router = express.Router()
-//const controller = require('./controller')
-const response = require('../../network/response')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+const multer = require('multer')
+const path = require('path')
+
+
 const config = require('../../config/index')
+const controller = require('./controller')
+const response = require('../../network/response')
+
+const storage = multer.diskStorage({
+    destination: 'public/files',
+    filename: function (req, file, cb) {
+      cb(null, file.filename + '-' + Date.now() +
+          path.extname(file.originalname))
+    }
+  })
+  
+const upload = multer({ storage: storage })
 
 require('../../strategies/basic')
 require('../../strategies/google')
@@ -15,7 +29,7 @@ router.post('/login', (req, res, next) => {
     passport.authenticate('basic',async  (error, user) => {
         try {
             if(error || !user){
-                throw new Error("User not found", error)
+                throw new Error("User not found")
             }
 
             req.login(user, { session: false }, (error) => {
@@ -55,8 +69,8 @@ router.get('/google', passport.authenticate('google' , { scope: ['profile', 'ema
 
 router.get('/google/callback', (req, res, next) => {
     passport.authenticate('google', { session: false }, (error, user) => {
-        if(!user){
-            next(boom.unauthorized('Unexpected error'))
+        if(error || !user){
+            throw new Error("User not found")
         }
     
         const { _id: id, name, email } = user;
@@ -81,12 +95,12 @@ router.get('/google/callback', (req, res, next) => {
     })(req, res, next)
 })
 
-router.get('/facebook', passport.authenticate('facebook'))
+router.get('/facebook', passport.authenticate('facebook', {scope: ['public_profile', 'email']}))
 
 router.get('/facebook/callback', (req, res, next) => {
-    passport.authenticate('facebook', { session: false }, (error, user) => {
-        if(!user){
-            next(boom.unauthorized('Unexpected error'))
+    passport.authenticate('facebook', { session: false }, async (error, user) => {
+        if(error || !user){
+            throw new Error("User not found")
         }
     
         const { _id: id, name, email } = user;
@@ -109,6 +123,17 @@ router.get('/facebook/callback', (req, res, next) => {
         return res.status(201).json({ token, "System message":"user succesfully logged in with facebook" })
 
     })(req, res, next)
+})
+
+router.post('/endsingup/:id', upload.single('image') ,async(req, res) => {
+    try {
+        const { age, country, gender } = req.body
+        const userInfo = await controller.addExtraInfo(age, country, gender, req.file , req.params.id)
+        
+        response.success(req, res, userInfo, 201)
+    } catch (error) {
+        response.error(req, res, error.message, 404, error) 
+    }
 })
 
 module.exports = router
