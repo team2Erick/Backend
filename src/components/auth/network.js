@@ -92,6 +92,7 @@ router.get('/google/callback', (req, res, next) => {
     
         return res.status(201).json({ token, "System message":"user succesfully logged in with google" })
 
+        
     })(req, res, next)
 })
 
@@ -129,7 +130,6 @@ router.post('/endsingup/:id', upload.single('image') ,async(req, res) => {
     try {
         const { age, country, gender } = req.body
         const userInfo = await controller.addExtraInfo(age, country, gender, req.file , req.params.id)
-        
         response.success(req, res, userInfo, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error) 

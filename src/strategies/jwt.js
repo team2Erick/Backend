@@ -16,14 +16,14 @@ const cookieExtractor = function(req) {
 passport.use(
     new Strategy(
         {
-            secretOrKey = confing.jwt_key,
-            jwtFromRequest = cookieExtractor
+            secretOrKey : confing.jwt_key,
+            jwtFromRequest : cookieExtractor
         },
 
         async (tokenpayload, cb) => {
             try {
                 const user = await Model.findOne({ email: tokenpayload.email })
-
+                console.log(user)
                 if(!user){
                     return cb(error, false)
                 }

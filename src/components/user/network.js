@@ -1,10 +1,13 @@
 const express = require('express')
+const passport = require('passport')
 const router = express.Router()
 const multer = require('multer')
 const path = require('path')
 const controller = require('./controller')
 const response = require('../../network/response')
 
+
+require('../../strategies/jwt')
 
 const storage = multer.diskStorage({
     destination: 'public/files',
@@ -45,7 +48,7 @@ router.post('/signup',upload.single('image') ,async (req, res) => {
     }
 })
 
-router.put('/update/:id', upload.single('image') ,async(req, res) => {
+router.put('/update/:id',upload.single('image') ,async(req, res) => {
     try {
         const { name, email, password, age, country, gender} = req.body
         
