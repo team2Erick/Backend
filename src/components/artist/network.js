@@ -29,7 +29,7 @@ router.get('/getall', async(req, res) => {
     }
 })
 
-router.get('/getartist/:id', async(req, res) => {
+router.get('/getartist/:id',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
     try {
         const artist = await controller.getArtist(req.params.id)
         response.success(req, res, artist, 201)
@@ -49,7 +49,7 @@ router.post('/signup',upload.single('image') ,async (req, res) => {
     }
 })
 
-router.put('/update/:id',upload.single('image')  ,async(req, res) => {
+router.put('/update/:id',passport.authenticate('jwt', {session: false}),upload.single('image')  ,async(req, res) => {
     try {
         const { name, email, password, country, record } = req.body
         
@@ -60,7 +60,7 @@ router.put('/update/:id',upload.single('image')  ,async(req, res) => {
     }
 })
 
-router.delete('/delete/:id', async(req, res) => {
+router.delete('/delete/:id', passport.authenticate('jwt', {session: false}) ,async(req, res) => {
     try {
         const deletedArtist = await controller.deleteArtist(req.params.id)
         response.success(req, res, deletedArtist, 201)
@@ -69,46 +69,5 @@ router.delete('/delete/:id', async(req, res) => {
     }
 })
 
-router.post('/login', (req, res, next) => {
-    
-    passport.authenticate('basic',async  (error, user) => {
-        try {
-            if(error || !user){
-                console.log(user)
-                throw new Error("User not found")
-            }
-
-            req.login(user, { session: false }, (error) => {
-                if(error){
-                    next(error)
-                }
-            })
-
-            const { _id: id, name, email } = user[0];
-                        
-            const payload = {
-                sub: id,
-                name,
-                email
-            }
-            
-            
-            const token = jwt.sign(payload, config.jwt_key,{
-                expiresIn: '15m'
-            });
-
-            res.cookie('token', token, {
-                httpOnly: true,
-                secure: false
-
-            }) 
-            
-            return  response.success(req, res, { token, "System" : "Artist succesfully loged"})
-
-        } catch (error) {
-            next(error)
-        }
-    })(req, res, next)
-})
 
 module.exports = router

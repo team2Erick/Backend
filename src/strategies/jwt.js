@@ -22,7 +22,7 @@ passport.use(
 
         async (tokenpayload, cb) => {
             try {
-                const user = await Model.findOne({ email: tokenpayload.email })
+                const user = await Model.find({ email: tokenpayload.email })
                 console.log(user)
                 if(!user){
                     return cb(error, false)
