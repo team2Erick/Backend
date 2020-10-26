@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const crypto = require('crypto')
 
 const Schema = mongoose.Schema
 
@@ -14,8 +15,11 @@ const mySchema = new Schema({
     playlist: {
         type: Schema.ObjectId,
         ref: "Playlist",
-    }
-})
+    },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date
+},{ timestamps: true})
+
 
 const userModel = mongoose.model('User', mySchema)
 

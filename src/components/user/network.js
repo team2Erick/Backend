@@ -59,7 +59,7 @@ router.put('/update/:id',passport.authenticate('jwt', {session: false}) ,upload.
     }
 })
 
-router.delete('/delete/:id',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.delete('/delete/:id',async(req, res) => {
     try {
         const deletedUser = await controller.deleteUser(req.params.id)
         response.success(req, res, deletedUser, 201)
