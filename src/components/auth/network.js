@@ -141,7 +141,7 @@ router.post('/recover', async(req, res) => {
         const { email } = req.body
 
         const data = await controller.passwordRecover(email, req.headers.host)
-        response.success(req, res, data, 201)
+        response.success(req, res, {System: "Email sent to your email account"}, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)  
     }

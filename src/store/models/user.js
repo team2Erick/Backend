@@ -17,8 +17,7 @@ const mySchema = new Schema({
         ref: "Playlist",
     },
     resetPasswordToken: String,
-    resetPasswordExpire: Date
-},{ timestamps: true})
+})
 
 
 const userModel = mongoose.model('User', mySchema)

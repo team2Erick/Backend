@@ -8,6 +8,7 @@ const config = {
     google_secret: process.env.GOOGLE_CLIENT_SECRET,
     facebook_id: process.env.FACEBOOK_CLIENT_ID,
     facebook_secret: process.env.FACEBOOK_CLIENT_SECRET,
+    password_email: process.env.PASSWORD_EMAIL
 
 }
 

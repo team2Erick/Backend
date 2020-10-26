@@ -15,8 +15,15 @@ const addExtraInfo = async(user, id) => {
     const data = Model.findByIdAndUpdate({_id: id}, user)
     return data
 }
+
+const filterToken = async(token) => {
+    const user = Model.find({resetPasswordToken: token})
+    
+    return user
+}
 module.exports = {
     get,
     add,
-    addExtraInfo
+    addExtraInfo,
+    filterToken
 }

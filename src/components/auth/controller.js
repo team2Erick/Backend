@@ -4,6 +4,8 @@ const config = require('../../config/index')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
 const userModel = require('../../store/models/user')
+const artistModel = require('../../store/models/artist')
+const { throws } = require('assert')
 
 
 const getUser = async(filter) => {
@@ -92,40 +94,39 @@ const passwordRecover = async(email, header) => {
         if(!user){ throw new Error("User not found")}
 
 
-        user.resetPasswordToken = crypto.randomBytes(20).toString('hex')
-        user.resetPasswordExpires = Date.now() + 3600000
+        user[0].resetPasswordToken = crypto.randomBytes(20).toString('hex')
+        
 
-        userModel.update()
-        console.log(user)
+        user[0].save()
             
         let transporter = nodemailer.createTransport({
-            service: "smtp.mailtrap.io",
-            port: 2525,
+            service: "Gmail",
             auth: {
-                user: "4a157897ed06dd",
-                pass: "1f4af3a2ab5d98"
+                user: "cdaymusicapp20202@gmail.com",
+                pass: config.password_email
             }
         })
-        let link = `http://${header}/auth/reset/${user.resetPasswordToken}`
+        let link = `http://${header}/auth/reset/${user[0].resetPasswordToken}`
         let mailOptions = {
-            to: user.email,
             from: 'gonzalezomar645@gmail.com',
-            text: `Hi ${user.username} \n 
+            to: user[0].email,
+            subject: "Password Reset",
+            text: `Hi ${user[0].name} \n 
             Please click on the following link ${link} to reset your password. \n\n 
             If you did not request this, please ignore this email and your password will remain unchanged.\n`,
 
         }
 
-    
-        transporter.sendMail(mailOptions, function(error) {
+        
+        transporter.sendMail(mailOptions, (error, result) => {
             if(error){
-                throw new Error(error)
+                throw new Error (error)
             }
-            
-            console.log('mail sent');
-            let response =  'An e-mail has been sent to ' + user.email + ' with further instructions.'
-            
-          });
+
+            console.log("mail sent")
+        })
+           
+        
 
 
     } catch (error) {
@@ -136,17 +137,18 @@ const passwordRecover = async(email, header) => {
 
 const reset = async(token, password) => {
     try {
-        const user = await userModel.find({resetPasswordToken: token, resetPasswordExpires: {$gt: Date.now()}})
+        
+        const user = await userModel.find({resetPasswordToken: token})
+        console.log(user)
 
         if(!user){ throw new Error("User not found")}
-
+        
         const hashedPassword = await bcrypt.hash(password, 8)
 
-        user.password = hashedPassword
-        user.resetPasswordToken = undefined
-        user.resetPasswordExpires = undefined
+        user[0].password = hashedPassword
+        user[0].resetPasswordToken = undefined
 
-        userModel.update()
+        user[0].save()
 
         const response ={ System: "password succesfully change"}
         return response
