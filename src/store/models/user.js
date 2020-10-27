@@ -16,7 +16,7 @@ const mySchema = new Schema({
         type: Schema.ObjectId,
         ref: "Playlist",
     },
-    resetPasswordToken: String,
+    PasswordToken: String,
 })
 
 

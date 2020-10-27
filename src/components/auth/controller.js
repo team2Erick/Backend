@@ -94,7 +94,7 @@ const passwordRecover = async(email, header) => {
         if(!user){ throw new Error("User not found")}
 
 
-        user[0].resetPasswordToken = crypto.randomBytes(20).toString('hex')
+        user[0].PasswordToken = crypto.randomBytes(20).toString('hex')
         
 
         user[0].save()
@@ -106,7 +106,7 @@ const passwordRecover = async(email, header) => {
                 pass: config.password_email
             }
         })
-        let link = `http://${header}/auth/reset/${user[0].resetPasswordToken}`
+        let link = `http://${header}/api/auth/reset/${user[0].PasswordToken}`
         let mailOptions = {
             from: 'gonzalezomar645@gmail.com',
             to: user[0].email,
@@ -137,8 +137,8 @@ const passwordRecover = async(email, header) => {
 
 const reset = async(token, password) => {
     try {
-        
-        const user = await userModel.find({resetPasswordToken: token})
+        console.log(token)
+        const user = await userModel.find({PasswordToken: token})
         console.log(user)
 
         if(!user){ throw new Error("User not found")}
@@ -146,7 +146,7 @@ const reset = async(token, password) => {
         const hashedPassword = await bcrypt.hash(password, 8)
 
         user[0].password = hashedPassword
-        user[0].resetPasswordToken = undefined
+        user[0].PasswordToken = undefined
 
         user[0].save()
 

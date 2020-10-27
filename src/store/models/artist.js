@@ -9,6 +9,10 @@ const mySchema = new Schema({
     password: String,
     country: String,
     record: String,
+    albums:{
+        type: Schema.ObjectId,
+        ref: "Album"
+    }
 })
 
 const userModel = mongoose.model('Artist', mySchema)
