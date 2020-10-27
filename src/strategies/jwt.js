@@ -9,7 +9,6 @@ const cookieExtractor = function(req) {
     {
         token = req.cookies.token;
     }
-    console.log(token)
     return token;
 };
 
@@ -23,7 +22,6 @@ passport.use(
         async (tokenpayload, cb) => {
             try {
                 const user = await Model.find({ email: tokenpayload.email })
-                console.log(user)
                 if(!user){
                     return cb(error, false)
                 }

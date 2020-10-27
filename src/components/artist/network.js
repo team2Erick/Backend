@@ -8,7 +8,6 @@ const controller = require('./controller')
 const response = require('../../network/response')
 const config = require('../../config/index')
 
-//require('./authArtist')
 
 const storage = multer.diskStorage({
     destination: 'public/files',
@@ -20,7 +19,7 @@ const storage = multer.diskStorage({
   
 const upload = multer({ storage: storage })
 
-router.get('/getall', async(req, res) => {
+router.get('/all-artist', async(req, res) => {
     try {
         const artists = await controller.getAllArtist()
         response.success(req, res, artists, 201)
@@ -29,7 +28,7 @@ router.get('/getall', async(req, res) => {
     }
 })
 
-router.get('/getartist/:id',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.get('/artist-profile/:id',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
     try {
         const artist = await controller.getArtist(req.params.id)
         response.success(req, res, artist, 201)
@@ -38,7 +37,7 @@ router.get('/getartist/:id',passport.authenticate('jwt', {session: false}) ,asyn
     }
 })
 
-router.post('/signup',upload.single('image') ,async (req, res) => {
+router.post('/sign-up',upload.single('image') ,async (req, res) => {
     try {
         const { name, email, password, country, record } = req.body
 

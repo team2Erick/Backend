@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
   
 const upload = multer({ storage: storage })
 
-router.get('/getall', async(req, res) => {
+router.get('/users', async(req, res) => {
     try {
         const users = await controller.getAllUsers()
         response.success(req, res, users, 201)
@@ -28,7 +28,7 @@ router.get('/getall', async(req, res) => {
     }
 })
 
-router.get('/getuser/:id',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.get('/user-profile/:id',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
     try {
         const user = await controller.getUser(req.params.id)
         response.success(req, res, user, 201)
@@ -37,7 +37,7 @@ router.get('/getuser/:id',passport.authenticate('jwt', {session: false}) ,async(
     }
 })
 
-router.post('/signup',upload.single('image') ,async (req, res) => {
+router.post('/sign-up',upload.single('image') ,async (req, res) => {
     try {
         const { name, email, password, age, country, gender } = req.body
 

@@ -126,7 +126,7 @@ router.get('/facebook/callback', (req, res, next) => {
     })(req, res, next)
 })
 
-router.post('/endsingup/:id', passport.authenticate('jwt', {session: false}),upload.single('image') ,async(req, res) => {
+router.post('/end-singup/:id', passport.authenticate('jwt', {session: false}),upload.single('image') ,async(req, res) => {
     try {
         const { age, country, gender } = req.body
         const userInfo = await controller.addExtraInfo(age, country, gender, req.file , req.params.id)

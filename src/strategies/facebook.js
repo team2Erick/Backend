@@ -17,8 +17,6 @@ passport.use(
             
             try {
                 
-                console.log(profile)
-                
                 const emailB = profile.email
                 ? profile.email
                 : `${profile.id}@facebook.com`;
