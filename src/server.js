@@ -12,6 +12,4 @@ app.use(express.urlencoded({ extended: true }))
 
 router(app)
 
-
-
 app.listen(config.port, console.log(`Server listen at http://localhost:${config.port}`))
