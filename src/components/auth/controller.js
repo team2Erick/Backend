@@ -34,7 +34,7 @@ const createUser = async (name, email, password, image) => {
 }
 
 
-const addExtraInfo = async(age, country, gender, image , id) => {
+const addExtraInfo = async(age, country, gender, image , id, header, protocol) => {
     try {
        if(!age || !country || !gender ){
            throw new Error("Missing Date")
@@ -42,7 +42,7 @@ const addExtraInfo = async(age, country, gender, image , id) => {
 
        let fileUrl = ""
        if (image){
-           fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
+           fileUrl = `${protocol}://${header}:${config.port}/app/files/${image.filename}`
            
            const userImage = {
             age,

@@ -22,7 +22,7 @@ const getArtist = async(id) => {
     }
 }
 
-const createArtist = async (name, email, password, country, record,  image) => {
+const createArtist = async (name, email, password, country, record,  image, header, protocol ) => {
     try {
         if (!name || !email || !password || !record || !country  ){
             throw new Error("Missing Data")
@@ -30,7 +30,7 @@ const createArtist = async (name, email, password, country, record,  image) => {
 
         let fileUrl = ""
             if (image){
-                fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
+                fileUrl = `${protocol}://${header}:${config.port}/app/files/${image.filename}`
             }
 
         const hashedPassword = await bcrypt.hash(password, 8)
@@ -58,7 +58,7 @@ const createArtist = async (name, email, password, country, record,  image) => {
     }
 }
 
-const updateArtist = async(name, email, password, country, record,image, id) => {
+const updateArtist = async(name, email, password, country, record,image, id, header, protocol) => {
     try {
         if (!name || !email || !password || !record || !country ){
             throw new Error("Missing Data")
@@ -66,7 +66,7 @@ const updateArtist = async(name, email, password, country, record,image, id) => 
 
         let fileUrl = ""
         if (image){
-            fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
+            fileUrl = `${protocol}://${header}:${config.port}/app/files/${image.filename}`
         }
 
         const hashedPassword = await bcrypt.hash(password, 8)
@@ -107,7 +107,7 @@ const deleteArtist = async(id) => {
     }
 }
 
-const passwordRecover = async(email, header) => {
+const passwordRecover = async(email, header, protocol) => {
     try {
         if(!email){ throw new Error("Missing data")}
 
@@ -128,7 +128,7 @@ const passwordRecover = async(email, header) => {
                 pass: config.password_email
             }
         })
-        let link = `http://${header}/auth/reset/${user[0].resetPasswordToken}`
+        let link = `${protocol}://${header}/api/auth/reset/${user[0].resetPasswordToken}`
         let mailOptions = {
             from: 'gonzalezomar645@gmail.com',
             to: user[0].email,

@@ -41,7 +41,7 @@ router.post('/sign-up',upload.single('image') ,async (req, res) => {
     try {
         const { name, email, password, country, record } = req.body
 
-        const newArtist = await controller.createArtist(name, email, password, country, record, req.file)
+        const newArtist = await controller.createArtist(name, email, password, country, record, req.file, req.headers.host, req.protocol)
         response.success(req, res, newArtist, 201)
     } catch (error) {
         response.error(req, res, error.message, 500, error)
@@ -52,7 +52,7 @@ router.put('/update/:id',passport.authenticate('jwt', {session: false}),upload.s
     try {
         const { name, email, password, country, record } = req.body
         
-        const updatedArtist = await controller.updateArtist(name, email, password, country, record, req.file ,req.params.id)
+        const updatedArtist = await controller.updateArtist(name, email, password, country, record, req.file ,req.params.id, req.headers.host, req.protocol)
         response.success(req, res, updatedArtist, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)
@@ -72,7 +72,7 @@ router.post('/recover-artist', async(req, res) => {
     try {
         const { email } = req.body
 
-        const data = await controller.passwordRecover(email, req.headers.host)
+        const data = await controller.passwordRecover(email, req.headers.host, req.protocol)
         response.success(req, res, data, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)  

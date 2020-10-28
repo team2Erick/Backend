@@ -20,7 +20,7 @@ const getUser = async(id) => {
     }
 }
 
-const createUser = async (name, email, password, age, country, gender ,image) => {
+const createUser = async (name, email, password, age, country, gender ,image, header, protocol) => {
     try {
         if (!name || !email || !password || !age || !country || !gender){
             throw new Error("Missing Data")
@@ -29,7 +29,7 @@ const createUser = async (name, email, password, age, country, gender ,image) =>
         
         let fileUrl = ""
         if (image){
-            fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
+            fileUrl = `${protocol}://${header}:${config.port}/app/files/${image.filename}`
         }
         
         const hashedPassword = await bcrypt.hash(password, 8)
@@ -57,7 +57,7 @@ const createUser = async (name, email, password, age, country, gender ,image) =>
     }
 }
 
-const updateUser = async(name, email, password, age, country, gender ,image ,id) => {
+const updateUser = async(name, email, password, age, country, gender ,image ,id, header, protocol) => {
     try {
         if (!name || !email || !password || !age || !country || !gender){
             throw new Error("Missing Data")
@@ -65,7 +65,7 @@ const updateUser = async(name, email, password, age, country, gender ,image ,id)
 
         let fileUrl = ""
         if (image){
-            fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
+            fileUrl = `${protocol}://${header}:${config.port}/app/files/${image.filename}`
         }
 
         const hashedPassword = await bcrypt.hash(password, 8)

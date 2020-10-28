@@ -41,7 +41,7 @@ router.post('/sign-up',upload.single('image') ,async (req, res) => {
     try {
         const { name, email, password, age, country, gender } = req.body
 
-        const newUSer = await controller.createUser(name, email, password, age, country,gender , req.file)
+        const newUSer = await controller.createUser(name, email, password, age, country,gender , req.file, req.headers.host, req.protocol)
         response.success(req, res, newUSer, 201)
     } catch (error) {
         response.error(req, res, error.message, 500, error)
@@ -52,7 +52,7 @@ router.put('/update/:id',passport.authenticate('jwt', {session: false}) ,upload.
     try {
         const { name, email, password, age, country, gender} = req.body
         
-        const updatedUser = await controller.updateUser(name, email, password, age, country, gender ,req.file ,req.params.id)
+        const updatedUser = await controller.updateUser(name, email, password, age, country, gender ,req.file ,req.params.id, req.headers.host, req.protocol)
         response.success(req, res, updatedUser, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)
