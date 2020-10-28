@@ -29,8 +29,7 @@ const deleteSong = async(id, song) => {
 const addPlaylist = async(id, playlistUser) => {
     const user = await Model.findById({_id: id})
 
-    
-    user.playlist = playlistUser
+    user.playlist.push(playlistUser)
 
     const newPlaylist = await user.save()
 
@@ -38,9 +37,18 @@ const addPlaylist = async(id, playlistUser) => {
     return newPlaylist
 }
 
+const userPlaylist = async(id) => {
+    const user = await Model.findById(id)
+
+    let index = user.playlist.indexOf({"name":"Workout"})
+    console.log(index)
+    console.log(user.playlist[index])
+}
+
 module.exports = {
     addSong,
     getSong,
     addPlaylist,
-    deleteSong
+    deleteSong,
+    userPlaylist
 }

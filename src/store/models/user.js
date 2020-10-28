@@ -17,7 +17,7 @@ const mySchema = new Schema({
     country: String,
     gender: String,
     favorites:[String],
-    playlist: playlistSchema,
+    playlist: [playlistSchema],
     PasswordToken: String,
 })
 

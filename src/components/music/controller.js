@@ -1,3 +1,4 @@
+const { get } = require('mongoose')
 const store = require('./store')
 
 const addFavorite = async (id, favorites) => {
@@ -63,9 +64,21 @@ const playlist = async (id, name, songs) => {
     }
 }
 
+const getPlaylist = async (id) => {
+    try {
+        if(!id){throw new Erro}
+
+        const playlist = await store.userPlaylist(id)
+        return playlist
+    } catch (error) {
+        throw new Error
+    }
+}
+
 module.exports = {
     addFavorite,
     getFavorite,
     playlist,
-    deleteFavorite
+    deleteFavorite,
+    getPlaylist
 }

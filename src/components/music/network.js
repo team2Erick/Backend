@@ -47,5 +47,16 @@ router.post('/playlist/:id', async(req, res) => {
     }
 })
 
+router.get('/playlist/:id', async(req, res) => {
+    try {
+        const {name, songs} = req.body
+
+        const playlist = await controller.getPlaylist(req.params.id)
+        response.success(req, res, playlist, 201)
+    } catch (error) {
+        response.error(req, res, error.message, 404, error)
+    }
+})
+
 
 module.exports = router
