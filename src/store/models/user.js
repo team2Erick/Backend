@@ -3,6 +3,11 @@ const crypto = require('crypto')
 
 const Schema = mongoose.Schema
 
+const playlistSchema = new Schema({
+    name: "String",
+    songs: [String]
+})
+
 const mySchema = new Schema({
     name: String,
     email: String,
@@ -12,10 +17,7 @@ const mySchema = new Schema({
     country: String,
     gender: String,
     favorites:[String],
-    playlist: {
-        type: Schema.ObjectId,
-        ref: "Playlist",
-    },
+    playlist: [playlistSchema],
     PasswordToken: String,
 })
 

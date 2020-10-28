@@ -68,13 +68,6 @@ router.delete('/delete/:id',async(req, res) => {
     }
 })
 
-router.post('/addfavorites/:idUser', async(req, res) => {
-    try {
-        const favoritesLists = await controller.addFavorite(req.params.idUser , req.body.favorites)
-        response.success(req, res, favoritesLists, 201)
-    } catch (error) {
-        response.error(req, res, error.message, 404, error)
-    }
-})
+
 
 module.exports = router

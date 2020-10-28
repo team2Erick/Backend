@@ -4,10 +4,7 @@ const Schema = mongoose.Schema
 
 const mySchema = new Schema({
     name: String,
-    songs:{
-        type:[String],
-        default: undefined
-    }
+    songs:[String]
 })
 
 const userModel = mongoose.model('Playlist', mySchema)

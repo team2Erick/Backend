@@ -35,15 +35,7 @@ const remove = async(id) => {
     return user
 }
 
-const addSong = async(id, songs) => {
-    const user = await Model.findById({ _id: id })
-    
-    user.favorites.push(songs)
-    console.log(user.favorites[0])
-    user.save()
-    
-    return user
-}
+
 
 
 module.exports = {
@@ -52,6 +44,4 @@ module.exports = {
     add,
     update,
     remove,
-    addSong
-
 }
