@@ -85,11 +85,11 @@ const addExtraInfo = async(age, country, gender, image , id) => {
 }
 
 
-const passwordRecover = async(email, header) => {
+const passwordRecover = async(email, header, protocol) => {
     try {
         if(!email){ throw new Error("Missing data")}
-
         const user = await userModel.find({email: email})
+        console.log(header)
 
         if(!user){ throw new Error("User not found")}
 
@@ -106,7 +106,7 @@ const passwordRecover = async(email, header) => {
                 pass: config.password_email
             }
         })
-        let link = `http://${header}/api/auth/reset/${user[0].PasswordToken}`
+        let link = `${protocol}://${header}/api/auth/reset/${user[0].PasswordToken}`
         let mailOptions = {
             from: 'gonzalezomar645@gmail.com',
             to: user[0].email,
@@ -137,9 +137,9 @@ const passwordRecover = async(email, header) => {
 
 const reset = async(token, password) => {
     try {
-        console.log(token)
+        
         const user = await userModel.find({PasswordToken: token})
-        console.log(user)
+        
 
         if(!user){ throw new Error("User not found")}
         
