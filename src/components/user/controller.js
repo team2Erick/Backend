@@ -1,6 +1,6 @@
 const store = require('./store')
 const bcrypt = require('bcrypt')
-
+const config = require('../../config/index')
 
 const getAllUsers = async() => {
     try {
@@ -20,17 +20,24 @@ const getUser = async(id) => {
     }
 }
 
-const createUser = async (name, email, password, age, country) => {
+const createUser = async (name, email, password, age, country, gender ,image) => {
     try {
-        if (!name || !email || !password || !age || !country){
+        if (!name || !email || !password || !age || !country || !gender){
             throw new Error("Missing Data")
         }
-
+        
+        
+        let fileUrl = ""
+        if (image){
+            fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
+        }
+        
         const hashedPassword = await bcrypt.hash(password, 8)
 
         const user =  {
             name,
             email,
+            image: fileUrl,
             age,
             country,
             password: hashedPassword
@@ -50,10 +57,15 @@ const createUser = async (name, email, password, age, country) => {
     }
 }
 
-const updateUser = async(name, email, password, age, country, id) => {
+const updateUser = async(name, email, password, age, country, gender ,image ,id) => {
     try {
-        if (!name || !email || !password || !age || !country){
+        if (!name || !email || !password || !age || !country || !gender){
             throw new Error("Missing Data")
+        }
+
+        let fileUrl = ""
+        if (image){
+            fileUrl = `http://localhost:${config.port}/app/files/${image.filename}`
         }
 
         const hashedPassword = await bcrypt.hash(password, 8)
@@ -61,6 +73,7 @@ const updateUser = async(name, email, password, age, country, id) => {
         const user =  {
             name,
             email,
+            image: fileUrl,
             age,
             country,
             password: hashedPassword
@@ -70,7 +83,7 @@ const updateUser = async(name, email, password, age, country, id) => {
 
         const finalResponse = {
             user,
-            "System": "User succesfully created"
+            "System": "User succesfully Updated"
         }
 
         return finalResponse
@@ -93,11 +106,25 @@ const deleteUser = async(id) => {
     }
 }
 
+const addFavorite = async (id, favorites) => {
+    try {
+        if(!favorites){
+            throw new Error("Missing Data")
+        }
+
+        const songs = await store.addSong(id, favorites)
+        return songs
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUser,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    addFavorite
 
 }

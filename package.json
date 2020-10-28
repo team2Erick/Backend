@@ -4,18 +4,29 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@hapi/boom": "^9.1.0",
     "bcrypt": "^5.0.0",
+    "bunyan": "^1.8.14",
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.14",
     "passport": "^0.4.1",
-    "passport-http": "^0.3.0"
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth": "^2.0.0",
+    "passport-http": "^0.3.0",
+    "passport-jwt": "^4.0.0",
+    "path": "^0.12.7"
   }
 }
