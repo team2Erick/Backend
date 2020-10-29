@@ -82,7 +82,7 @@ const updateUser = async(name, email, password, age, country, gender ,image ,id,
         const updatedUser = await store.update(id, user)
 
         const finalResponse = {
-            user,
+            updatedUser,
             "System": "User succesfully Updated"
         }
 
