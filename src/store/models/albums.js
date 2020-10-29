@@ -7,7 +7,7 @@ const mySchema = new Schema({
     band: String,
     year: String,
     genre: String,
-    tracklist: String,
+    tracklist: [String],
     cover: String,
     country:String
 })

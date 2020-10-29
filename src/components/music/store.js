@@ -1,5 +1,8 @@
 const Model = require('../../store/models/user')
 
+
+
+
 const addSong = async(id, songs) => {
     const user = await Model.findById({ _id: id })
     
@@ -15,6 +18,7 @@ const getSong = async(id) => {
     console.log(user.favorites)
     return user.favorites
 }
+
 
 const deleteSong = async(id, song) => {
     const user = await Model.findById({ _id: id })
@@ -37,18 +41,50 @@ const addPlaylist = async(id, playlistUser) => {
     return newPlaylist
 }
 
-const userPlaylist = async(id) => {
-    const user = await Model.findById(id)
+const allPlaylist = async(id) => {
+   
+    const user = await Model.findById({_id: id})
 
-    let index = user.playlist.indexOf({"name":"Workout"})
-    console.log(index)
-    console.log(user.playlist[index])
+    return user.playlist
 }
+
+const onePlaylist = async(id, name) => {
+    
+    const user = await Model.findById({_id: id})
+    const playlistFilter = (playlist) => playlist.name === name
+    
+    const data = user.playlist.filter(playlistFilter)
+    if(data.length === 0){throw new Error("Not such a playlist")}
+    
+    return data
+}
+
+const deletePlaylist = async(id, name) => {
+   
+    const user = await Model.findById({_id: id})
+    const playlistFilter = (playlist) => playlist.name === name
+
+
+    const data = user.playlist.filter(playlistFilter)
+    if(data.length === 0){throw new Error("Not such a playlist")}
+    
+    data[0].remove()
+    user.save()
+    user.update()
+
+    return data
+
+}
+
+
 
 module.exports = {
     addSong,
     getSong,
     addPlaylist,
     deleteSong,
-    userPlaylist
+    allPlaylist,
+    onePlaylist,
+    deletePlaylist
+
 }

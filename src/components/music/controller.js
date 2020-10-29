@@ -66,12 +66,39 @@ const playlist = async (id, name, songs) => {
 
 const getPlaylist = async (id) => {
     try {
-        if(!id){throw new Erro}
-
-        const playlist = await store.userPlaylist(id)
+        if(!id){throw new Error("Not user id")}
+        
+        const playlist = await store.allPlaylist(id)
+        
         return playlist
     } catch (error) {
-        throw new Error
+        throw new Error(error)
+    }
+}
+
+const getOnePlaylist = async (id,name) => {
+    try {
+        if(!id || !name){throw new Error("Missing Playlist name")}
+        
+        const playlist = await store.onePlaylist(id, name)
+        return playlist
+                
+        
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+const deletePlaylist = async (id,name) => {
+    try {
+        if(!id || !name){throw new Error("Missing Playlist name")}
+        
+        const playlist = await store.deletePlaylist(id, name)
+        return playlist
+                
+        
+    } catch (error) {
+        throw new Error(error)
     }
 }
 
@@ -80,5 +107,7 @@ module.exports = {
     getFavorite,
     playlist,
     deleteFavorite,
-    getPlaylist
+    getPlaylist,
+    getOnePlaylist,
+    deletePlaylist  
 }
