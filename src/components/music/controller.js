@@ -93,7 +93,7 @@ const deletePlaylist = async (id,name) => {
     try {
         if(!id || !name){throw new Error("Missing Playlist name")}
         
-        const playlist = await store.deletePlaylist(id, name)
+        const playlist = await store.removePlaylist(id, name)
         return playlist
                 
         
@@ -102,6 +102,48 @@ const deletePlaylist = async (id,name) => {
     }
 }
 
+
+const updatePlaylist = async (id,name, newname) => {
+    try {
+        if(!id || !name){throw new Error("Missing Playlist name")}
+        
+        const playlist = await store.uPlaylist(id, name, newname)
+        return playlist
+                
+        
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+const addSongPlaylist = async (id,name, song) => {
+    try {
+        if(!id || !name){throw new Error("Missing Playlist name")}
+        
+        const playlist = await store.songPlaylist(id, name, song)
+        return playlist
+                
+        
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+const deleteSongPlaylist = async (id,name, song) => {
+    try {
+        if(!id || !name){throw new Error("Missing Playlist name")}
+        
+        const playlist = await store.removeSongPlaylist(id, name, song)
+        return playlist
+                
+        
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+
+
 module.exports = {
     addFavorite,
     getFavorite,
@@ -109,5 +151,8 @@ module.exports = {
     deleteFavorite,
     getPlaylist,
     getOnePlaylist,
-    deletePlaylist  
+    deletePlaylist ,
+    updatePlaylist ,
+    addSongPlaylist,
+    deleteSongPlaylist
 }

@@ -59,7 +59,7 @@ const onePlaylist = async(id, name) => {
     return data
 }
 
-const deletePlaylist = async(id, name) => {
+const removePlaylist = async(id, name) => {
    
     const user = await Model.findById({_id: id})
     const playlistFilter = (playlist) => playlist.name === name
@@ -76,6 +76,52 @@ const deletePlaylist = async(id, name) => {
 
 }
 
+const uPlaylist = async(id, name, newname) => {
+   
+    const user = await Model.findById({_id: id})
+    const playlistFilter = (playlist) => playlist.name === name
+
+
+    const data = user.playlist.filter(playlistFilter)
+    if(data.length === 0){throw new Error("Not such a playlist")}
+    
+    data[0].name = newname
+
+    user.save()
+    return data
+}
+
+const songPlaylist = async(id, name, song) => {
+   
+    const user = await Model.findById({_id: id})
+    const playlistFilter = (playlist) => playlist.name === name
+
+
+    const data = user.playlist.filter(playlistFilter)
+    if(data.length === 0){throw new Error("Not such a playlist")}
+    
+    data[0].songs.push(song)
+
+    user.save()
+    return data
+}
+
+const removeSongPlaylist = async(id, name, song) => {
+   
+    const user = await Model.findById({_id: id})
+    const playlistFilter = (playlist) => playlist.name === name
+
+
+    const data = user.playlist.filter(playlistFilter)
+    if(data.length === 0){throw new Error("Not such a playlist")}
+    
+    const index = data[0].songs.indexOf(song)
+    data[0].songs.splice(index, 1)
+
+    user.save()
+    return data
+}
+
 
 
 module.exports = {
@@ -85,6 +131,9 @@ module.exports = {
     deleteSong,
     allPlaylist,
     onePlaylist,
-    deletePlaylist
+    removePlaylist,
+    uPlaylist,
+    songPlaylist,
+    removeSongPlaylist
 
 }
