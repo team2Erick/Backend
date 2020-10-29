@@ -9,7 +9,7 @@ passport.use(new GoogleStrategy(
     {
         clientID: config.google_id,
         clientSecret: config.google_secret,
-        callbackURL: 'http://localhost:3000/auth/google/callback'
+        callbackURL: 'https://cday-music.herokuapp.com/api/auth/google/callback'
     },
 
     async (token, tokenSecret, profile, done) => {
