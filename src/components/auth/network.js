@@ -29,7 +29,7 @@ router.post('/login', (req, res, next) => {
     passport.authenticate('basic',async  (error, user) => {
         try {
             if(error || !user){
-                throw new Error("User not found")
+                throw new Error("User or Password incorrect")
             }
 
             req.login(user, { session: false }, (error) => {
@@ -101,7 +101,7 @@ router.get('/facebook', passport.authenticate('facebook', {scope: ['public_profi
 router.get('/facebook/callback', (req, res, next) => {
     passport.authenticate('facebook', { session: false }, async (error, user) => {
         if(error || !user){
-            throw new Error("Email or Password incorrect")
+            throw new Error("User not found")
         }
     
         const { _id: id, name, email } = user;
