@@ -29,6 +29,6 @@ app.use(passport.session())
 
 router(app)
 
-app.use('/app', express.static('src/public'))
+app.use('/app', express.static('public'))
 
 app.listen(config.port, console.log(`http://localhost:${config.port}`))

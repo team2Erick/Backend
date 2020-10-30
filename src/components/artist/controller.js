@@ -30,7 +30,7 @@ const createArtist = async (name, email, password, country, record,  image, head
 
         let fileUrl = ""
             if (image){
-                fileUrl = `${protocol}://${header}:${config.port}/app/files/${image.filename}`
+                fileUrl = `${protocol}://${header}/app/files/${image.filename}`
             }
 
         const hashedPassword = await bcrypt.hash(password, 8)
@@ -66,7 +66,7 @@ const updateArtist = async(name, email, password, country, record,image, id, hea
 
         let fileUrl = ""
         if (image){
-            fileUrl = `${protocol}://${header}:${config.port}/app/files/${image.filename}`
+            fileUrl = `${protocol}://${header}/app/files/${image.filename}`
         }
 
         const hashedPassword = await bcrypt.hash(password, 8)
