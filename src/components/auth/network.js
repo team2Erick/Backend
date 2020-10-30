@@ -128,8 +128,8 @@ router.get('/facebook/callback', (req, res, next) => {
 
 router.post('/end-singup/:id', passport.authenticate('jwt', {session: false}),upload.single('image') ,async(req, res) => {
     try {
-        const { brithdate, country, gender } = req.body
-        const userInfo = await controller.addExtraInfo(brithdate, country, gender, req.file , req.params.id, req.headers.host, req.protocol)
+        const { birthdate, country, gender } = req.body
+        const userInfo = await controller.addExtraInfo(birthdate, country, gender, req.file , req.params.id, req.headers.host, req.protocol)
         response.success(req, res, userInfo, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error) 
