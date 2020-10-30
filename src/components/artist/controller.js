@@ -83,7 +83,7 @@ const updateArtist = async(name, email, password, country, record,image, id, hea
         const updatedArtist = await store.update(id, artist)
 
         const finalResponse = {
-            artist,
+            updateArtist,
             "System": "Artist succesfully Updated"
         }
 

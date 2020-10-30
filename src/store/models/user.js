@@ -13,7 +13,7 @@ const mySchema = new Schema({
     email: String,
     image: String,
     password: String,
-    age: Date,
+    birthdate: Date,
     country: String,
     gender: String,
     favorites:[String],

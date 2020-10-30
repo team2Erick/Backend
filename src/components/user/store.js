@@ -18,14 +18,7 @@ const add = async (user) => {
 }
 
 const update = async(id, user) => {
-    let retrivedUser = await Model.findById({ _id: id})
-
-    let entrie = Object.entries(retrivedUser)
-    entrie = Object.entries(user)
-
-    retrivedUser = Object.fromEntries(entrie)
-
-    const updatedUser = await Model.findByIdAndUpdate(id, retrivedUser)
+    const updatedUser = Model.findByIdAndUpdate({_id: id}, user, {new: true})
     return updatedUser
 }
 

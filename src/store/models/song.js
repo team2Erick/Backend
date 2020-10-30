@@ -7,7 +7,7 @@ const mySchema = new Schema({
     duration: String,
     genre: String,
     tracknumber: String,
-    plays: String,
+    plays: [Date],
     album: {
         type: Schema.ObjectId,
         ref: "Album"

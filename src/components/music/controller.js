@@ -1,4 +1,3 @@
-const { get } = require('mongoose')
 const store = require('./store')
 
 const addFavorite = async (id, favorites) => {
@@ -8,7 +7,13 @@ const addFavorite = async (id, favorites) => {
         }
 
         const songs = await store.addSong(id, favorites)
-        return songs
+        
+        const finalResponse = {
+            songs,
+            System: "Song added to Your favorite list"
+        }
+
+        return finalResponse
     } catch (error) {
         throw new Error(error)
     }
@@ -34,7 +39,13 @@ const deleteFavorite = async (id, song) => {
         }
 
         const songs = await store.deleteSong(id, song)
-        return songs
+        
+        const finalResponse = {
+            songs,
+            System: "Song removed of Your favorite list"
+        }
+
+        return finalResponse
     } catch (error) {
         throw new Error(error)
     }
@@ -66,19 +77,117 @@ const playlist = async (id, name, songs) => {
 
 const getPlaylist = async (id) => {
     try {
-        if(!id){throw new Erro}
-
-        const playlist = await store.userPlaylist(id)
+        if(!id){throw new Error("Not user id")}
+        
+        const playlist = await store.allPlaylist(id)
+        
         return playlist
     } catch (error) {
-        throw new Error
+        throw new Error(error)
     }
 }
+
+const getOnePlaylist = async (id,playlistId) => {
+    try {
+        if(!id || !playlistId){throw new Error("Missing Playlist name")}
+        
+        const playlist = await store.onePlaylist(id, playlistId)
+        return playlist
+                
+        
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+const deletePlaylist = async (id, playlistId) => {
+    try {
+        if(!id || !playlistId){throw new Error("Missing Playlist name")}
+        
+        const playlist = await store.removePlaylist(id, playlistId)
+        
+        const finalResponse = {
+            playlist,
+            System: "Playlist removed "
+        }
+
+        return finalResponse
+                
+        
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+
+const updatePlaylist = async (id,playlistId, newname) => {
+    try {
+        if(!id || !playlistId){throw new Error("Missing Playlist name")}
+        
+        const playlist = await store.uPlaylist(id, playlistId, newname)
+        
+        const finalResponse = {
+            playlist,
+            System: "Playlist Updated"
+        }
+
+        return finalResponse
+                
+        
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+const addSongPlaylist = async (id,playlistId, song) => {
+    try {
+        if(!id || !playlistId){throw new Error("Missing Playlist name")}
+        
+        const playlist = await store.songPlaylist(id, playlistId, song)
+        
+        const finalResponse = {
+            playlist,
+            System: "Song added"
+        }
+
+        return finalResponse
+                
+        
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+const deleteSongPlaylist = async (id,playlistId, song) => {
+    try {
+        if(!id || !playlistId){throw new Error("Missing Playlist name")}
+        
+        const playlist = await store.removeSongPlaylist(id, playlistId, song)
+        
+        
+        const finalResponse = {
+            playlist,
+            System: "Song removed"
+        }
+
+        return finalResponse
+        
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+
 
 module.exports = {
     addFavorite,
     getFavorite,
     playlist,
     deleteFavorite,
-    getPlaylist
+    getPlaylist,
+    getOnePlaylist,
+    deletePlaylist ,
+    updatePlaylist ,
+    addSongPlaylist,
+    deleteSongPlaylist
 }

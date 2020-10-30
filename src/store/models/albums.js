@@ -7,7 +7,10 @@ const mySchema = new Schema({
     band: String,
     year: String,
     genre: String,
-    tracklist: String,
+    tracklist: [{
+        type: Schema.ObjectId,
+        ref: "song" 
+    }],
     cover: String,
     country:String
 })
