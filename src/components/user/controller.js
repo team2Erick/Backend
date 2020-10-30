@@ -20,9 +20,9 @@ const getUser = async(id) => {
     }
 }
 
-const createUser = async (name, email, password, age, country, gender ,image, header, protocol) => {
+const createUser = async (name, email, password, brithdate, country, gender ,image, header, protocol) => {
     try {
-        if (!name || !email || !password || !age || !country || !gender){
+        if (!name || !email || !password || !brithdate || !country || !gender){
             throw new Error("Missing Data")
         }
         
@@ -38,7 +38,7 @@ const createUser = async (name, email, password, age, country, gender ,image, he
             name,
             email,
             image: fileUrl,
-            age,
+            brithdate,
             country,
             password: hashedPassword
         }
@@ -57,9 +57,9 @@ const createUser = async (name, email, password, age, country, gender ,image, he
     }
 }
 
-const updateUser = async(name, email, password, age, country, gender ,image ,id, header, protocol) => {
+const updateUser = async(name, email, password, brithdate, country, gender ,image ,id, header, protocol) => {
     try {
-        if (!name || !email || !password || !age || !country || !gender){
+        if (!name || !email || !password || !brithdate || !country || !gender){
             throw new Error("Missing Data")
         }
 
@@ -74,7 +74,7 @@ const updateUser = async(name, email, password, age, country, gender ,image ,id,
             name,
             email,
             image: fileUrl,
-            age,
+            brithdate,
             country,
             password: hashedPassword
         }

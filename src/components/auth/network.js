@@ -48,7 +48,7 @@ router.post('/login', (req, res, next) => {
             
             
             const token = jwt.sign(payload, config.jwt_key,{
-                expiresIn: '15m'
+                expiresIn: '30m'
             });
 
             res.cookie('token', token, {
@@ -82,7 +82,7 @@ router.get('/google/callback', (req, res, next) => {
         }
     
         const token = jwt.sign(payload, config.jwt_key, {
-            expiresIn: '15m'
+            expiresIn: '30m'
         })
     
         res.cookie('token', token, {
@@ -113,7 +113,7 @@ router.get('/facebook/callback', (req, res, next) => {
         }
     
         const token = jwt.sign(payload, config.jwt_key, {
-            expiresIn: '15m'
+            expiresIn: '30m'
         })
     
         res.cookie('token', token, {
@@ -128,8 +128,8 @@ router.get('/facebook/callback', (req, res, next) => {
 
 router.post('/end-singup/:id', passport.authenticate('jwt', {session: false}),upload.single('image') ,async(req, res) => {
     try {
-        const { age, country, gender } = req.body
-        const userInfo = await controller.addExtraInfo(age, country, gender, req.file , req.params.id, req.headers.host, req.protocol)
+        const { brithdate, country, gender } = req.body
+        const userInfo = await controller.addExtraInfo(brithdate, country, gender, req.file , req.params.id, req.headers.host, req.protocol)
         response.success(req, res, userInfo, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error) 
