@@ -26,6 +26,8 @@ passport.use(
                     email: profile._json.email,
                     password: profile.id
                 }
+
+                console.log(user)
                 
                 const currentUser = await controller.getUser(user.email)
             
