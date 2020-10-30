@@ -1,4 +1,3 @@
-const { get } = require('mongoose')
 const store = require('./store')
 
 const addFavorite = async (id, favorites) => {
@@ -76,11 +75,11 @@ const getPlaylist = async (id) => {
     }
 }
 
-const getOnePlaylist = async (id,name) => {
+const getOnePlaylist = async (id,nameId) => {
     try {
-        if(!id || !name){throw new Error("Missing Playlist name")}
+        if(!id || !nameId){throw new Error("Missing Playlist name")}
         
-        const playlist = await store.onePlaylist(id, name)
+        const playlist = await store.onePlaylist(id, nameId)
         return playlist
                 
         
@@ -89,11 +88,11 @@ const getOnePlaylist = async (id,name) => {
     }
 }
 
-const deletePlaylist = async (id,name) => {
+const deletePlaylist = async (id, nameId) => {
     try {
-        if(!id || !name){throw new Error("Missing Playlist name")}
+        if(!id || !nameId){throw new Error("Missing Playlist name")}
         
-        const playlist = await store.removePlaylist(id, name)
+        const playlist = await store.removePlaylist(id, nameId)
         return playlist
                 
         
@@ -129,11 +128,11 @@ const addSongPlaylist = async (id,name, song) => {
     }
 }
 
-const deleteSongPlaylist = async (id,name, song) => {
+const deleteSongPlaylist = async (id,nameId, song) => {
     try {
-        if(!id || !name){throw new Error("Missing Playlist name")}
+        if(!id || !nameId){throw new Error("Missing Playlist name")}
         
-        const playlist = await store.removeSongPlaylist(id, name, song)
+        const playlist = await store.removeSongPlaylist(id, nameId, song)
         return playlist
                 
         

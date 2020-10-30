@@ -27,7 +27,7 @@ router.get('/favorites/:idUser', async(req, res) => {
 
 router.delete('/favorites/:idUser', async(req, res) => {
     try {
-        const favoritesLists = await controller.deleteFavorite(req.params.idUser, req.body.song)
+        const favoritesLists = await controller.deleteFavorite(req.params.idUser, req.query.song)
         response.success(req, res, favoritesLists, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)
@@ -58,10 +58,10 @@ router.get('/playlist/:id', async(req, res) => {
 
 router.get('/one-playlist/:id', async(req, res) => {
     try {
-        const { name } = req.body
+        const { playlist } = req.query
 
-        const playlist = await controller.getOnePlaylist(req.params.id, name)
-        response.success(req, res, playlist, 201)
+        const userPlaylist = await controller.getOnePlaylist(req.params.id, playlist)
+        response.success(req, res, userPlaylist, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)
     }
@@ -69,10 +69,10 @@ router.get('/one-playlist/:id', async(req, res) => {
 
 router.delete('/delete-playlist/:id', async(req, res) => {
     try {
-        const { name } = req.body
+        const { playlist } = req.query
 
-        const playlist = await controller.deletePlaylist(req.params.id, name)
-        response.success(req, res, playlist, 201)
+        const userPlaylist = await controller.deletePlaylist(req.params.id, playlist)
+        response.success(req, res, userPlaylist, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)
     }
@@ -100,12 +100,12 @@ router.post('/addSong-playlist/:id', async(req, res) => {
     }
 })
 
-router.delete('/deleteSong-playlist/:id', async(req, res) => {
+router.delete('/deleteSong-playlist/:id/:playlist', async(req, res) => {
     try {
-        const { name, song } = req.body
+        const {  song } = req.query
 
-        const playlist = await controller.deleteSongPlaylist(req.params.id, name, song)
-        response.success(req, res, playlist, 201)
+        const userPlaylist = await controller.deleteSongPlaylist(req.params.id, req.params.playlist, song)
+        response.success(req, res, userPlaylist, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)
     }

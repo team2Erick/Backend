@@ -48,21 +48,23 @@ const allPlaylist = async(id) => {
     return user.playlist
 }
 
-const onePlaylist = async(id, name) => {
+const onePlaylist = async(id, nameId) => {
     
     const user = await Model.findById({_id: id})
-    const playlistFilter = (playlist) => playlist.name === name
+
+    const playlistFilter = (playlist) => playlist._id == nameId
     
     const data = user.playlist.filter(playlistFilter)
+    console.log(user.playlist)
     if(data.length === 0){throw new Error("Not such a playlist")}
     
     return data
 }
 
-const removePlaylist = async(id, name) => {
+const removePlaylist = async(id, nameId) => {
    
     const user = await Model.findById({_id: id})
-    const playlistFilter = (playlist) => playlist.name === name
+    const playlistFilter = (playlist) => playlist._id == nameId
 
 
     const data = user.playlist.filter(playlistFilter)
@@ -106,10 +108,10 @@ const songPlaylist = async(id, name, song) => {
     return data
 }
 
-const removeSongPlaylist = async(id, name, song) => {
+const removeSongPlaylist = async(id, nameId, song) => {
    
     const user = await Model.findById({_id: id})
-    const playlistFilter = (playlist) => playlist.name === name
+    const playlistFilter = (playlist) => playlist._id == nameId
 
 
     const data = user.playlist.filter(playlistFilter)
