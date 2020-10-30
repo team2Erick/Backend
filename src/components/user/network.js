@@ -12,7 +12,7 @@ require('../../strategies/jwt')
 const storage = multer.diskStorage({
     destination: 'public/files',
     filename: function (req, file, cb) {
-      cb(null, file.filename + '-' + Date.now() +
+      cb(null, Date.now() +
           path.extname(file.originalname))
     }
   })

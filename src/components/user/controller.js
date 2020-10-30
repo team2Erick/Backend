@@ -29,7 +29,7 @@ const createUser = async (name, email, password, birthdate, country, gender ,ima
         
         let fileUrl = ""
         if (image){
-            fileUrl = `${protocol}://${header}:${config.port}/app/files/${image.filename}`
+            fileUrl = `${protocol}://${header}/app/public/files/${image.filename}`
         }
         
         const hashedPassword = await bcrypt.hash(password, 8)
@@ -65,7 +65,7 @@ const updateUser = async(name, email, password, birthdate, country, gender ,imag
 
         let fileUrl = ""
         if (image){
-            fileUrl = `${protocol}://${header}:${config.port}/app/files/${image.filename}`
+            fileUrl = `${protocol}://${header}/app/files/${image.filename}`
         }
 
         const hashedPassword = await bcrypt.hash(password, 8)
