@@ -80,10 +80,11 @@ router.delete('/delete-playlist/:id', async(req, res) => {
 
 router.put('/update-playlist/:id', async(req, res) => {
     try {
-        const { name, newname } = req.body
+        const { newname } = req.body
+        const { playlist } = req.query
 
-        const playlist = await controller.updatePlaylist(req.params.id, name, newname)
-        response.success(req, res, playlist, 201)
+        const userPlaylist = await controller.updatePlaylist(req.params.id, playlist, newname)
+        response.success(req, res, userPlaylist, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)
     }
@@ -91,10 +92,11 @@ router.put('/update-playlist/:id', async(req, res) => {
 
 router.post('/addSong-playlist/:id', async(req, res) => {
     try {
-        const { name, song } = req.body
+        const { song } = req.body
+        const { playlist } = req.query
 
-        const playlist = await controller.addSongPlaylist(req.params.id, name, song)
-        response.success(req, res, playlist, 201)
+        const userPlaylist = await controller.addSongPlaylist(req.params.id, playlist, song)
+        response.success(req, res, userPlaylist, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error)
     }

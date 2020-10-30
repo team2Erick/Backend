@@ -7,7 +7,13 @@ const addFavorite = async (id, favorites) => {
         }
 
         const songs = await store.addSong(id, favorites)
-        return songs
+        
+        const finalResponse = {
+            songs,
+            System: "Song added to Your favorite list"
+        }
+
+        return finalResponse
     } catch (error) {
         throw new Error(error)
     }
@@ -33,7 +39,13 @@ const deleteFavorite = async (id, song) => {
         }
 
         const songs = await store.deleteSong(id, song)
-        return songs
+        
+        const finalResponse = {
+            songs,
+            System: "Song removed of Your favorite list"
+        }
+
+        return finalResponse
     } catch (error) {
         throw new Error(error)
     }
@@ -75,11 +87,11 @@ const getPlaylist = async (id) => {
     }
 }
 
-const getOnePlaylist = async (id,nameId) => {
+const getOnePlaylist = async (id,playlistId) => {
     try {
-        if(!id || !nameId){throw new Error("Missing Playlist name")}
+        if(!id || !playlistId){throw new Error("Missing Playlist name")}
         
-        const playlist = await store.onePlaylist(id, nameId)
+        const playlist = await store.onePlaylist(id, playlistId)
         return playlist
                 
         
@@ -88,12 +100,18 @@ const getOnePlaylist = async (id,nameId) => {
     }
 }
 
-const deletePlaylist = async (id, nameId) => {
+const deletePlaylist = async (id, playlistId) => {
     try {
-        if(!id || !nameId){throw new Error("Missing Playlist name")}
+        if(!id || !playlistId){throw new Error("Missing Playlist name")}
         
-        const playlist = await store.removePlaylist(id, nameId)
-        return playlist
+        const playlist = await store.removePlaylist(id, playlistId)
+        
+        const finalResponse = {
+            playlist,
+            System: "Playlist removed "
+        }
+
+        return finalResponse
                 
         
     } catch (error) {
@@ -102,12 +120,18 @@ const deletePlaylist = async (id, nameId) => {
 }
 
 
-const updatePlaylist = async (id,name, newname) => {
+const updatePlaylist = async (id,playlistId, newname) => {
     try {
-        if(!id || !name){throw new Error("Missing Playlist name")}
+        if(!id || !playlistId){throw new Error("Missing Playlist name")}
         
-        const playlist = await store.uPlaylist(id, name, newname)
-        return playlist
+        const playlist = await store.uPlaylist(id, playlistId, newname)
+        
+        const finalResponse = {
+            playlist,
+            System: "Playlist Updated"
+        }
+
+        return finalResponse
                 
         
     } catch (error) {
@@ -115,12 +139,18 @@ const updatePlaylist = async (id,name, newname) => {
     }
 }
 
-const addSongPlaylist = async (id,name, song) => {
+const addSongPlaylist = async (id,playlistId, song) => {
     try {
-        if(!id || !name){throw new Error("Missing Playlist name")}
+        if(!id || !playlistId){throw new Error("Missing Playlist name")}
         
-        const playlist = await store.songPlaylist(id, name, song)
-        return playlist
+        const playlist = await store.songPlaylist(id, playlistId, song)
+        
+        const finalResponse = {
+            playlist,
+            System: "Song added"
+        }
+
+        return finalResponse
                 
         
     } catch (error) {
@@ -128,13 +158,19 @@ const addSongPlaylist = async (id,name, song) => {
     }
 }
 
-const deleteSongPlaylist = async (id,nameId, song) => {
+const deleteSongPlaylist = async (id,playlistId, song) => {
     try {
-        if(!id || !nameId){throw new Error("Missing Playlist name")}
+        if(!id || !playlistId){throw new Error("Missing Playlist name")}
         
-        const playlist = await store.removeSongPlaylist(id, nameId, song)
-        return playlist
-                
+        const playlist = await store.removeSongPlaylist(id, playlistId, song)
+        
+        
+        const finalResponse = {
+            playlist,
+            System: "Song removed"
+        }
+
+        return finalResponse
         
     } catch (error) {
         throw new Error(error)

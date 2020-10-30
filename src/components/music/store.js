@@ -27,7 +27,7 @@ const deleteSong = async(id, song) => {
     
     const result = user.favorites.splice(index, 1)
     user.save()
-    return result
+    return user.favorites
 }
 
 const addPlaylist = async(id, playlistUser) => {
@@ -48,11 +48,11 @@ const allPlaylist = async(id) => {
     return user.playlist
 }
 
-const onePlaylist = async(id, nameId) => {
+const onePlaylist = async(id, playlistId) => {
     
     const user = await Model.findById({_id: id})
 
-    const playlistFilter = (playlist) => playlist._id == nameId
+    const playlistFilter = (playlist) => playlist._id == playlistId
     
     const data = user.playlist.filter(playlistFilter)
     console.log(user.playlist)
@@ -61,10 +61,10 @@ const onePlaylist = async(id, nameId) => {
     return data
 }
 
-const removePlaylist = async(id, nameId) => {
+const removePlaylist = async(id, playlistId) => {
    
     const user = await Model.findById({_id: id})
-    const playlistFilter = (playlist) => playlist._id == nameId
+    const playlistFilter = (playlist) => playlist._id == playlistId
 
 
     const data = user.playlist.filter(playlistFilter)
@@ -78,10 +78,10 @@ const removePlaylist = async(id, nameId) => {
 
 }
 
-const uPlaylist = async(id, name, newname) => {
+const uPlaylist = async(id, playlistId, newname) => {
    
     const user = await Model.findById({_id: id})
-    const playlistFilter = (playlist) => playlist.name === name
+    const playlistFilter = (playlist) => playlist._id == playlistId
 
 
     const data = user.playlist.filter(playlistFilter)
@@ -93,10 +93,10 @@ const uPlaylist = async(id, name, newname) => {
     return data
 }
 
-const songPlaylist = async(id, name, song) => {
+const songPlaylist = async(id, playlistId, song) => {
    
     const user = await Model.findById({_id: id})
-    const playlistFilter = (playlist) => playlist.name === name
+    const playlistFilter = (playlist) => playlist._id == playlistId
 
 
     const data = user.playlist.filter(playlistFilter)
@@ -108,10 +108,10 @@ const songPlaylist = async(id, name, song) => {
     return data
 }
 
-const removeSongPlaylist = async(id, nameId, song) => {
+const removeSongPlaylist = async(id, playlistId, song) => {
    
     const user = await Model.findById({_id: id})
-    const playlistFilter = (playlist) => playlist._id == nameId
+    const playlistFilter = (playlist) => playlist._id == playlistId
 
 
     const data = user.playlist.filter(playlistFilter)
