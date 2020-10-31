@@ -42,7 +42,7 @@ const addExtraInfo = async(birthdate, country, gender, image , id, header, proto
 
        let fileUrl = ""
        if (image){
-           fileUrl = `${protocol}://${header}/app/files/${image.filename}`
+           fileUrl = `${protocol}://${header}/public/files/${image.filename}`
            
            const userImage = {
             birthdate,
@@ -89,7 +89,6 @@ const passwordRecover = async(email, header, protocol) => {
     try {
         if(!email){ throw new Error("Missing data")}
         const user = await userModel.find({email: email})
-        console.log(header)
 
         if(!user){ throw new Error("User not found")}
 
@@ -136,9 +135,6 @@ const passwordRecover = async(email, header, protocol) => {
             console.log("mail sent")
         })
            
-        
-
-
     } catch (error) {
         throw new Error(error)
     }
