@@ -8,6 +8,10 @@ const playlistSchema = new Schema({
     songs: [String]
 })
 
+const playedSong = new Schema({
+    songs: String
+})
+
 const mySchema = new Schema({
     name: String,
     email: String,

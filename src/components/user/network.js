@@ -10,9 +10,9 @@ const response = require('../../network/response')
 require('../../strategies/jwt')
 
 const storage = multer.diskStorage({
-    destination: 'public/files',
-    filename: function (req, file, cb) {
-      cb(null, Date.now() +
+    destination: (req, file, cb ) => cb(null, "public/files"),
+    filename: (req, file, cb) => {
+      cb(null, file.filename + '-' + Date.now() +
           path.extname(file.originalname))
     }
   })
