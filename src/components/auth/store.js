@@ -12,7 +12,7 @@ const add = async (user) => {
 }
 
 const addExtraInfo = async(user, id) => {
-    const data = Model.findByIdAndUpdate({_id: id}, user)
+    const data = Model.findByIdAndUpdate({_id: id}, user, {new: true})
     return data
 }
 
