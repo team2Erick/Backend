@@ -42,7 +42,7 @@ const addExtraInfo = async(birthdate, country, gender, image , id, header, proto
 
        let fileUrl = ""
        if (image){
-           fileUrl = `${protocol}://${header}/app/files/${image.filename}`
+           fileUrl = `${protocol}://${header}/public/files/${image.filename}`
            
            const userImage = {
             birthdate,
