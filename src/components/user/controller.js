@@ -1,6 +1,7 @@
 const store = require('./store')
 const bcrypt = require('bcrypt')
 const config = require('../../config/index')
+const Model = require('../../store/models/user')
 
 const getAllUsers = async() => {
     try {
@@ -26,6 +27,9 @@ const createUser = async (name, email, password, birthdate, country, gender ,ima
             throw new Error("Missing Data")
         }
         
+        const currentUser = await Model.findOne({email: email})
+
+        if(currentUser){throw new Error("Email already use")}
         
         let fileUrl = ""
         if (image){

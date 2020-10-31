@@ -89,7 +89,6 @@ const passwordRecover = async(email, header, protocol) => {
     try {
         if(!email){ throw new Error("Missing data")}
         const user = await userModel.find({email: email})
-        console.log(header)
 
         if(!user){ throw new Error("User not found")}
 
@@ -135,9 +134,6 @@ const passwordRecover = async(email, header, protocol) => {
             console.log("mail sent")
         })
            
-        
-
-
     } catch (error) {
         throw new Error(error)
     }
