@@ -1,7 +1,7 @@
 const user = require('../components/user/network')
 const auth = require('../components/auth/network')
 const artist = require('../components/artist/network')
-const music = require('../components/music.old/network')
+const music = require('../components/music/network')
 // const search = require('../components/search/network')
 
 const routes = app => {
@@ -9,6 +9,7 @@ const routes = app => {
     app.use('/api/auth', auth)
     app.use('/api/artist', artist)
     app.use('/api/music', music)
+    // app.use('/api/music', music)
 }
 
 module.exports = routes
