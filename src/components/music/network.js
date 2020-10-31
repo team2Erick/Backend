@@ -20,10 +20,11 @@ router.get('/discover', async (req, res) => {
         if (req.query.userId) {
 
         } else {
-            searchQuery = await controller.globalDiscover();
+            searchQuery = await controller.discover.global();
         }
 
         response.success(req, res, searchQuery, 201);
+
     } catch (error) {
         response.error(req, res, error.message, 404, error);
     }
