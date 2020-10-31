@@ -9,7 +9,7 @@ passport.use(
         {
             clientID: config.facebook_id,
             clientSecret: config.facebook_secret,
-            callbackURL: 'http://localhost:3000/api/auth/facebook/callback',
+            callbackURL: 'https://cday-music.herokuapp.com/api/auth/facebook/callback',
             profileFields: ["id","displayName" ,"gender", "birthday", "email", "first_name",  "last_name", ]
         },
 
