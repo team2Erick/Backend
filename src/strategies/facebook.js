@@ -9,7 +9,7 @@ passport.use(
         {
             clientID: config.facebook_id,
             clientSecret: config.facebook_secret,
-            callbackURL: 'http://localhost:3000/auth/facebook/callback',
+            callbackURL: 'http://localhost:3000/api/auth/facebook/callback',
             profileFields: ["id","displayName" ,"gender", "birthday", "email", "first_name",  "last_name", ]
         },
 
@@ -26,8 +26,6 @@ passport.use(
                     email: profile._json.email,
                     password: profile.id
                 }
-
-                console.log(user)
                 
                 const currentUser = await controller.getUser(user.email)
             
