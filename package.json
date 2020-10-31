@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "@hapi/boom": "^9.1.0",
+    "axios": "^0.21.0",
     "bcrypt": "^5.0.0",
     "bunyan": "^1.8.14",
     "cookie-parser": "^1.4.5",
@@ -29,5 +30,8 @@
     "passport-http": "^0.3.0",
     "passport-jwt": "^4.0.0",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
