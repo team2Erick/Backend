@@ -27,7 +27,6 @@ module.exports = {
 
             genre = JSON.parse(genre)
 
-            console.log(genre);
             let songs = await axios.get("https://api.deezer.com/search", {
                 params: {
                     q: genre.name,
@@ -37,12 +36,6 @@ module.exports = {
             var artists = await axios.get(`https://api.deezer.com/genre/${genre.id}/artists`);
 
             artists = artists.data.data.splice(0, 4);
-
-            console.log(genre + " kfmwek");
-            console.log(genre);
-            console.log(genre["id"]);
-            console.log(genre.id);
-            console.log(`https://api.deezer.com/genre/${genre.id}/artists`);
 
             for (let artistIndex in artists) {
 
