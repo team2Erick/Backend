@@ -111,7 +111,7 @@ const passwordRecover = async(email, header, protocol) => {
         })
         let link = `${protocol}://${header}/api/auth/reset/${user[0].PasswordToken}`
         let mailOptions = {
-            from: 'gonzalezomar645@gmail.com',
+            from: 'cdaymusicapp20202@gmail.com',
             to: user[0].email,
             subject: "Password Reset",
             html: `Hi <strong> ${user[0].name} </strong> \n 
