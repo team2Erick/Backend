@@ -86,7 +86,11 @@ router.post('/reset-artist/:token', async(req, res) => {
         const data =  await controller.reset(token , password)
         response.success(req, res, data, 201)
     } catch (error) {
+<<<<<<< HEAD
         response.error(req, res, error.message, error)
+=======
+        response.error(req, res, error.message,  error)
+>>>>>>> master
     }
 })
 

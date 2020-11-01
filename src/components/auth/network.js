@@ -49,7 +49,11 @@ router.post('/login', (req, res, next) => {
             return  response.success(req, res, { token, "System" : "User succesfully loged"}, 201)
 
         } catch (error) {
+<<<<<<< HEAD
             response.error(req, res, error.message,  error)  
+=======
+            response.error(req, res, error.message,  error) 
+>>>>>>> master
         }
     })(req, res, next)
 })
