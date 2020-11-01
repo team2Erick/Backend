@@ -1,5 +1,5 @@
 const axios = require("axios")
-
+const store = require("./store")
 
 module.exports = {
 
@@ -112,6 +112,14 @@ module.exports = {
 
         return albumsObject;
 
+    },
+
+    async addPlay(play) {
+        try {
+            return await store.addPlay(play);
+        } catch (error) {
+            throw new Error(error)
+        }
     }
 
 }
