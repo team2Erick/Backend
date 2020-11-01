@@ -130,7 +130,11 @@ router.post('/recover', async(req, res) => {
         const data = await controller.passwordRecover(email, req.headers.host,req.protocol)
         response.success(req, res, {System: "Email sent to your email account"}, 201)
     } catch (error) {
+<<<<<<< HEAD
         response.error(req, res, error.message,  error)  
+=======
+        response.error(req, res, error.message, error)  
+>>>>>>> develop
     }
 })
 
@@ -141,7 +145,11 @@ router.post('/reset/:token', async(req, res) => {
         const data =  await controller.reset(token , password)
         response.success(req, res, data, 201)
     } catch (error) {
+<<<<<<< HEAD
         response.error(req, res, error.message,  error)
+=======
+        response.error(req, res, error.message, error)
+>>>>>>> develop
     }
 })
 

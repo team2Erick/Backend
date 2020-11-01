@@ -12,6 +12,10 @@ router.post('/add-favorites/:idUser', async(req, res) => {
         response.success(req, res, favoritesLists, 201)
     } catch (error) {
         response.error(req, res, error.message,  error)
+<<<<<<< HEAD
+=======
+    
+>>>>>>> develop
     }
 })
 
@@ -73,7 +77,11 @@ router.delete('/delete-playlist/:id', async(req, res) => {
         const userPlaylist = await controller.deletePlaylist(req.params.id, playlist)
         response.success(req, res, userPlaylist, 201)
     } catch (error) {
+<<<<<<< HEAD
         response.error(req, res, error.message, error)
+=======
+        response.error(req, res, error.message,  error)
+>>>>>>> develop
     }
 })
 
@@ -85,7 +93,11 @@ router.put('/update-playlist/:id', async(req, res) => {
         const userPlaylist = await controller.updatePlaylist(req.params.id, playlist, newname)
         response.success(req, res, userPlaylist, 201)
     } catch (error) {
+<<<<<<< HEAD
         response.error(req, res, error.message, error)
+=======
+        response.error(req, res, error.message,  error)
+>>>>>>> develop
     }
 })
 
@@ -108,7 +120,11 @@ router.delete('/deleteSong-playlist/:id/:playlist', async(req, res) => {
         const userPlaylist = await controller.deleteSongPlaylist(req.params.id, req.params.playlist, song)
         response.success(req, res, userPlaylist, 201)
     } catch (error) {
+<<<<<<< HEAD
         response.error(req, res, error.message, error)
+=======
+        response.error(req, res, error.message,  error)
+>>>>>>> develop
     }
 })
 

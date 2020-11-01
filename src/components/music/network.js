@@ -26,7 +26,11 @@ router.get('/discover', async (req, res) => {
         response.success(req, res, searchQuery, 201);
 
     } catch (error) {
+<<<<<<< HEAD
         response.error(req, res, error.message, error);
+=======
+        response.error(req, res, error.message,  error);
+>>>>>>> develop
     }
 })
 
