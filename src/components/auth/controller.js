@@ -169,12 +169,18 @@ const reset = async(token, password) => {
 const createToken = async(user) => {
     try {
 
-        const { _id: id, name, email } = user[0];
+        console.log(user)
+
+        const { _id: id, name, email , image, gender, country, birthdate} = user[0];
                         
             const payload = {
                 sub: id,
                 name,
-                email
+                email,
+                image,
+                birthdate,
+                gender,
+                country
             }
 
             console.log(payload)
