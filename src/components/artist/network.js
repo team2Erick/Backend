@@ -44,7 +44,7 @@ router.post('/sign-up',upload.single('image') ,async (req, res) => {
         const newArtist = await controller.createArtist(name, email, password, country, record, req.file, req.headers.host, req.protocol)
         response.success(req, res, newArtist, 201)
     } catch (error) {
-        response.error(req, res, error.message, 500, error)
+        response.error(req, res, error.message, error)
     }
 })
 
@@ -55,7 +55,7 @@ router.put('/update/:id',passport.authenticate('jwt', {session: false}),upload.s
         const updatedArtist = await controller.updateArtist(name, email, password, country, record, req.file ,req.params.id, req.headers.host, req.protocol)
         response.success(req, res, updatedArtist, 201)
     } catch (error) {
-        response.error(req, res, error.message, 404, error)
+        response.error(req, res, error.message, error)
     }
 })
 
@@ -64,7 +64,7 @@ router.delete('/delete/:id', passport.authenticate('jwt', {session: false}) ,asy
         const deletedArtist = await controller.deleteArtist(req.params.id)
         response.success(req, res, deletedArtist, 201)
     } catch (error) {
-        response.error(req, res, error.message, 404, error)
+        response.error(req, res, error.message, error)
     }
 })
 
