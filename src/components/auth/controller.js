@@ -114,7 +114,7 @@ const passwordRecover = async(email, header, protocol) => {
             from: 'gonzalezomar645@gmail.com',
             to: user[0].email,
             subject: "Password Reset",
-            text: `Hi <strong>${user[0].name} </strong> \n 
+            html: `Hi <strong> ${user[0].name} </strong> \n 
             <div align="center">
                 <img src="../assets/images/frame.png" alt="LogoCDAY" width="20%">
             </div>
@@ -126,7 +126,8 @@ const passwordRecover = async(email, header, protocol) => {
                 <strong ">Link</strong><br>                        
             </p>
             <p style="color: #fff; font-size: 18px; font-weight: 400; text-align: center; background: #005ba3; margin: 0 0 25px; overflow: hidden; padding: 20px; border-radius: 35px 35px 35px 35px; 
-            -moz-border-radius: 35px 35px 35px 35px; -webkit-border-radius: 35px 35px 35px 35px; border: 2px solid #743D40;">' ${link} '</p> \n`,
+            -moz-border-radius: 35px 35px 35px 35px; -webkit-border-radius: 35px 35px 35px 35px; border: 2px solid #743D40;"> ${link} </p> \n`
+
         }
 
         
