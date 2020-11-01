@@ -44,7 +44,8 @@ const createUser = async (name, email, password, birthdate, country, gender ,ima
             image: fileUrl,
             birthdate,
             country,
-            password: hashedPassword
+            password: hashedPassword,
+            gender
         }
 
         const newUser = await store.add(user)
@@ -80,7 +81,8 @@ const updateUser = async(name, email, password, birthdate, country, gender ,imag
             image: fileUrl,
             birthdate,
             country,
-            password: hashedPassword
+            password: hashedPassword,
+            gender
         }
 
         const updatedUser = await store.update(id, user)

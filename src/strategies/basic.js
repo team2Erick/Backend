@@ -1,7 +1,5 @@
 const passport = require('passport')
-const {
-    BasicStrategy
-} = require('passport-http')
+const { BasicStrategy } = require('passport-http')
 const bcryp = require('bcrypt')
 const boom = require('@hapi/boom')
 
