@@ -169,13 +169,15 @@ const reset = async(token, password) => {
 const createToken = async(user) => {
     try {
 
-        const { _id: id, name, email } = user;
+        const { _id: id, name, email } = user[0];
                         
             const payload = {
                 sub: id,
                 name,
                 email
             }
+
+            console.log(payload)
         
         const token = jwt.sign(payload, config.jwt_key,{
             expiresIn: '30m'
