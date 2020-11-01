@@ -119,15 +119,18 @@ const passwordRecover = async(email, header, protocol) => {
                 <img src="https://imgur.com/ZXUuaH5" alt="LogoCDAY" width="20%">
             </div>
             <p style="font-size:150%; text-align: center;">
-                Please click on the following link to reset your password. \n\n 
-                If you did not request this, please ignore this email and your password will remain unchanged.
+            Please click on the following link to reset your password. \n\n 
+            If you did not request this, please ignore this email and your password will remain unchanged.
             </p>
             <p style="text-align:center; font-size:110%;">
-                <strong ">Link</strong><br>                        
+            <strong ">Link</strong><br>                        
             </p>
             <p style="color: #fff; font-size: 18px; font-weight: 400; text-align: center; background: #005ba3; margin: 0 0 25px; overflow: hidden; padding: 20px; border-radius: 35px 35px 35px 35px; 
-            -moz-border-radius: 35px 35px 35px 35px; -webkit-border-radius: 35px 35px 35px 35px; border: 2px solid #743D40;"> ${link} </p> \n`
-
+            -moz-border-radius: 35px 35px 35px 35px; -webkit-border-radius: 35px 35px 35px 35px; border: 2px solid #743D40;"> ${link} </p> \n`,
+            text: `Hi ${user[0].name} , Please click on the following link to reset your password. 
+            If you did not request this, please ignore this email and your password will remain unchanged.
+            ${link} ` ,
+            
         }
 
         
