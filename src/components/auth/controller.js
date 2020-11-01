@@ -4,12 +4,16 @@ const config = require('../../config/index')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
 const userModel = require('../../store/models/user')
-const artistModel = require('../../store/models/artist')
-const { throws } = require('assert')
+const jwt = require('jsonwebtoken')
 
 
 const getUser = async(filter) => {
     const user = await store.get(filter)
+    return user
+}
+
+const getUserById = async(id) => {
+    const user = await store.getById(id)
     return user
 }
 
@@ -42,7 +46,7 @@ const addExtraInfo = async(birthdate, country, gender, image , id, header, proto
 
        let fileUrl = ""
        if (image){
-           fileUrl = `${protocol}://${header}/app/files/${image.filename}`
+           fileUrl = `${protocol}://${header}/public/files/${image.filename}`
            
            const userImage = {
             birthdate,
@@ -89,7 +93,6 @@ const passwordRecover = async(email, header, protocol) => {
     try {
         if(!email){ throw new Error("Missing data")}
         const user = await userModel.find({email: email})
-        console.log(header)
 
         if(!user){ throw new Error("User not found")}
 
@@ -111,10 +114,19 @@ const passwordRecover = async(email, header, protocol) => {
             from: 'gonzalezomar645@gmail.com',
             to: user[0].email,
             subject: "Password Reset",
-            text: `Hi ${user[0].name} \n 
-            Please click on the following link ${link} to reset your password. \n\n 
-            If you did not request this, please ignore this email and your password will remain unchanged.\n`,
-
+            text: `Hi <strong>${user[0].name} </strong> \n 
+            <div align="center">
+                <img src="../assets/images/frame.png" alt="LogoCDAY" width="20%">
+            </div>
+            <p style="font-size:150%; text-align: center;">
+                Please click on the following link to reset your password. \n\n 
+                If you did not request this, please ignore this email and your password will remain unchanged.
+            </p>
+            <p style="text-align:center; font-size:110%;">
+                <strong ">Link</strong><br>                        
+            </p>
+            <p style="color: #fff; font-size: 18px; font-weight: 400; text-align: center; background: #005ba3; margin: 0 0 25px; overflow: hidden; padding: 20px; border-radius: 35px 35px 35px 35px; 
+            -moz-border-radius: 35px 35px 35px 35px; -webkit-border-radius: 35px 35px 35px 35px; border: 2px solid #743D40;">' ${link} '</p> \n`,
         }
 
         
@@ -126,9 +138,6 @@ const passwordRecover = async(email, header, protocol) => {
             console.log("mail sent")
         })
            
-        
-
-
     } catch (error) {
         throw new Error(error)
     }
@@ -157,10 +166,34 @@ const reset = async(token, password) => {
     }
 }
 
+const createToken = async(user) => {
+    try {
+
+        const { _id: id, name, email } = user;
+                        
+            const payload = {
+                sub: id,
+                name,
+                email
+            }
+        
+        const token = jwt.sign(payload, config.jwt_key,{
+            expiresIn: '30m'
+        })
+
+        return token 
+
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
 module.exports = {
+    getUserById,
     getUser,
     createUser,
     addExtraInfo,
     passwordRecover,
-    reset
+    reset,
+    createToken
 }
