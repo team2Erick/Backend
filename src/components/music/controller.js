@@ -20,31 +20,75 @@ module.exports = {
 
     },
 
-    async genre() {
-        const songs = await axios.get("https://api.deezer.com/search", {
-            params: {
-                q: "rock",
+    async genre(genre) {
+
+
+        if (genre) {
+
+            genre = JSON.parse(genre)
+
+            console.log(genre);
+            let songs = await axios.get("https://api.deezer.com/search", {
+                params: {
+                    q: genre.name,
+                }
+            });
+
+            var artists = await axios.get(`https://api.deezer.com/genre/${genre.id}/artists`);
+
+            artists = artists.data.data.splice(0, 4);
+
+            console.log(genre + " kfmwek");
+            console.log(genre);
+            console.log(genre["id"]);
+            console.log(genre.id);
+            console.log(`https://api.deezer.com/genre/${genre.id}/artists`);
+
+            for (let artistIndex in artists) {
+
+                let tracks = await axios.get(`https://api.deezer.com/artist/${artists[artistIndex].id}/top?limit=10`)
+                let artist = await axios.get(`https://api.deezer.com/artist/${artists[artistIndex].id}`)
+
+                artists[artistIndex].tracks = tracks.data.data
+                artists[artistIndex].fans = artist.data.nb_fan
+                artists[artistIndex].nb_album = artist.data.nb_album
+
             }
-        });
-        var artists = await axios.get("https://api.deezer.com/genre/152/artists");
 
-        artists = artists.data.data.splice(0, 4);
+            return {
+                songs: songs.data.data,
+                artists
+            }
+        } else {
 
-        for (const artistIndex in artists) {
+            let songs = await axios.get("https://api.deezer.com/search", {
+                params: {
+                    q: "rock",
+                }
+            });
 
-            let tracks = await axios.get(`https://api.deezer.com/artist/${artists[artistIndex].id}/top?limit=10`)
-            let artist = await axios.get(`https://api.deezer.com/artist/${artists[artistIndex].id}`)
+            var artists = await axios.get("https://api.deezer.com/genre/152/artists");
 
-            artists[artistIndex].tracks = tracks.data.data
-            artists[artistIndex].fans = artist.data.nb_fan
-            artists[artistIndex].nb_album = artist.data.nb_album
+            artists = artists.data.data.splice(0, 4);
+
+            for (let artistIndex in artists) {
+
+                let tracks = await axios.get(`https://api.deezer.com/artist/${artists[artistIndex].id}/top?limit=10`)
+                let artist = await axios.get(`https://api.deezer.com/artist/${artists[artistIndex].id}`)
+
+                artists[artistIndex].tracks = tracks.data.data
+                artists[artistIndex].fans = artist.data.nb_fan
+                artists[artistIndex].nb_album = artist.data.nb_album
+
+            }
+
+            return {
+                songs: songs.data.data,
+                artists
+            }
 
         }
 
-        return {
-            songs: songs.data.data,
-            artists
-        }
 
     },
 

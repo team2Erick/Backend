@@ -33,7 +33,7 @@ router.get('/discover', async (req, res) => {
 router.get("/genre", async (req, res) => {
 
     try {
-        const genreQuery = await controller.genre();
+        const genreQuery = await controller.genre(req.query.genre);
         response.success(req, res, genreQuery, 201);
     } catch (error) {
         response.error(req, res, error.message, 404, error);
