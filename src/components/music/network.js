@@ -41,4 +41,18 @@ router.get("/genre", async (req, res) => {
 
 })
 
+
+router.get("/album", async (req, res) => {
+
+    try {
+        const albumQuery = await controller.album();
+        response.success(req, res, albumQuery, 201);
+    } catch (error) {
+        response.error(req, res, error.message, 404, error);
+    }
+
+})
+
+
+
 module.exports = router;
