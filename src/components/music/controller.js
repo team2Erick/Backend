@@ -48,6 +48,27 @@ module.exports = {
             artists
         }
 
+    },
+
+    async album() {
+
+        const albums = [
+            "9706844",
+            "133279102",
+            "778452",
+            "437484672",
+            "9410106"
+        ]
+
+        const albumsObject = []
+
+        for (const album of albums) {
+            const albumQuery = await axios.get("https://api.deezer.com/album/" + album);
+            albumsObject.push(albumQuery.data)
+        }
+
+        return albumsObject
+
     }
 
 }
