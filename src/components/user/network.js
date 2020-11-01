@@ -12,7 +12,7 @@ require('../../strategies/jwt')
 const storage = multer.diskStorage({
     destination: (req, file, cb ) => cb(null, "public/files"),
     filename: (req, file, cb) => {
-      cb(null, file.originalname + '-' + Date.now() +
+      cb(null, file.name + '-' + Date.now() +
           path.extname(file.originalname))
     }
   })
@@ -28,7 +28,7 @@ router.get('/users', async(req, res) => {
     }
 })
 
-router.get('/user-profile/:id',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.get('/user-profile/:id', async(req, res) => {
     try {
         const user = await controller.getUser(req.params.id)
         response.success(req, res, user, 201)
@@ -48,7 +48,7 @@ router.post('/sign-up',upload.single('image') ,async (req, res) => {
     }
 })
 
-router.put('/update/:id',passport.authenticate('jwt', {session: false}) ,upload.single('image') ,async(req, res) => {
+router.put('/update/:id', upload.single('image') ,async(req, res) => {
     try {
         const { name, email, password, birthdate, country, gender} = req.body
         
@@ -59,7 +59,7 @@ router.put('/update/:id',passport.authenticate('jwt', {session: false}) ,upload.
     }
 })
 
-router.delete('/delete/:id',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.delete('/delete/:id', async(req, res) => {
     try {
         const deletedUser = await controller.deleteUser(req.params.id)
         response.success(req, res, deletedUser, 201)

@@ -6,7 +6,7 @@ const response = require('../../network/response')
 
 require('../../strategies/jwt')
 
-router.post('/add-favorites/:idUser', passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.post('/add-favorites/:idUser', async(req, res) => {
     try {
         const favoritesLists = await controller.addFavorite(req.params.idUser , req.body.favorites)
         response.success(req, res, favoritesLists, 201)
@@ -15,7 +15,7 @@ router.post('/add-favorites/:idUser', passport.authenticate('jwt', {session: fal
     }
 })
 
-router.get('/favorites/:idUser',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.get('/favorites/:idUser', async(req, res) => {
     try {
         const favoritesLists = await controller.getFavorite(req.params.idUser)
         response.success(req, res, favoritesLists, 201)
@@ -24,7 +24,7 @@ router.get('/favorites/:idUser',passport.authenticate('jwt', {session: false}) ,
     }
 })
 
-router.delete('/favorites/:idUser', passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.delete('/favorites/:idUser', async(req, res) => {
     try {
         const favoritesLists = await controller.deleteFavorite(req.params.idUser, req.query.song)
         response.success(req, res, favoritesLists, 201)
@@ -35,7 +35,7 @@ router.delete('/favorites/:idUser', passport.authenticate('jwt', {session: false
 
 
 
-router.post('/create-playlist/:id', passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.post('/create-playlist/:id', async(req, res) => {
     try {
         const {name, songs} = req.body
 
@@ -46,7 +46,7 @@ router.post('/create-playlist/:id', passport.authenticate('jwt', {session: false
     }
 })
 
-router.get('/playlist/:id', passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.get('/playlist/:id', async(req, res) => {
     try {
         const playlist = await controller.getPlaylist(req.params.id)
         response.success(req, res, playlist, 201)
@@ -55,7 +55,7 @@ router.get('/playlist/:id', passport.authenticate('jwt', {session: false}) ,asyn
     }
 })
 
-router.get('/one-playlist/:id', passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.get('/one-playlist/:id', async(req, res) => {
     try {
         const { playlist } = req.query
 
@@ -66,7 +66,7 @@ router.get('/one-playlist/:id', passport.authenticate('jwt', {session: false}) ,
     }
 })
 
-router.delete('/delete-playlist/:id', passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.delete('/delete-playlist/:id', async(req, res) => {
     try {
         const { playlist } = req.query
 
@@ -77,7 +77,7 @@ router.delete('/delete-playlist/:id', passport.authenticate('jwt', {session: fal
     }
 })
 
-router.put('/update-playlist/:id', passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.put('/update-playlist/:id', async(req, res) => {
     try {
         const { newname } = req.body
         const { playlist } = req.query
@@ -89,7 +89,7 @@ router.put('/update-playlist/:id', passport.authenticate('jwt', {session: false}
     }
 })
 
-router.post('/addSong-playlist/:id', passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.post('/addSong-playlist/:id', async(req, res) => {
     try {
         const { song } = req.body
         const { playlist } = req.query
@@ -101,7 +101,7 @@ router.post('/addSong-playlist/:id', passport.authenticate('jwt', {session: fals
     }
 })
 
-router.delete('/deleteSong-playlist/:id/:playlist', passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.delete('/deleteSong-playlist/:id/:playlist', async(req, res) => {
     try {
         const {  song } = req.query
 
