@@ -4,12 +4,16 @@ const config = require('../../config/index')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
 const userModel = require('../../store/models/user')
-const artistModel = require('../../store/models/artist')
-const { throws } = require('assert')
+const jwt = require('jsonwebtoken')
 
 
 const getUser = async(filter) => {
     const user = await store.get(filter)
+    return user
+}
+
+const getUserById = async(id) => {
+    const user = await store.getById(id)
     return user
 }
 
@@ -162,10 +166,34 @@ const reset = async(token, password) => {
     }
 }
 
+const createToken = async(user) => {
+    try {
+
+        const { _id: id, name, email } = user;
+                        
+            const payload = {
+                sub: id,
+                name,
+                email
+            }
+        
+        const token = jwt.sign(payload, config.jwt_key,{
+            expiresIn: '30m'
+        })
+
+        return token 
+
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
 module.exports = {
+    getUserById,
     getUser,
     createUser,
     addExtraInfo,
     passwordRecover,
-    reset
+    reset,
+    createToken
 }
