@@ -30,8 +30,6 @@ module.exports = {
 
         artists = artists.data.data.splice(0, 4);
 
-        console.log(artists.length);
-
         for (const artistIndex in artists) {
 
             let tracks = await axios.get(`https://api.deezer.com/artist/${artists[artistIndex].id}/top?limit=10`)
@@ -55,19 +53,27 @@ module.exports = {
         const albums = [
             "9706844",
             "133279102",
-            "778452",
-            "437484672",
-            "9410106"
-        ]
+            "91272",
+            "11130386",
+            "9410106",
+            "182475962",
+            "1225855",
+            "381154",
+            "138794092",
+            "13162620",
+            "212377",
+            "299821",
+            "58815872"
+        ];
 
-        const albumsObject = []
+        const albumsObject = [];
 
         for (const album of albums) {
             const albumQuery = await axios.get("https://api.deezer.com/album/" + album);
-            albumsObject.push(albumQuery.data)
+            albumsObject.push(albumQuery.data);
         }
 
-        return albumsObject
+        return albumsObject;
 
     }
 

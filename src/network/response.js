@@ -5,7 +5,7 @@ exports.success = (req, res, message, status) => {
 }
 
 exports.error = (req, res, error, status) => {
-    res.status( 200).send({
+    res.status(200).send({
         error: error
     })
 }
