@@ -8,7 +8,7 @@ router.get('/search', async (req, res) => {
         const searchQuery = await controller.search(req.query.search);
         response.success(req, res, searchQuery, 201);
     } catch (error) {
-        response.error(req, res, error.message, 404, error);
+        response.error(req, res, error.message,  error);
     }
 })
 
@@ -26,8 +26,33 @@ router.get('/discover', async (req, res) => {
         response.success(req, res, searchQuery, 201);
 
     } catch (error) {
-        response.error(req, res, error.message, 404, error);
+        response.error(req, res, error.message,  error);
     }
 })
+
+router.get("/genre", async (req, res) => {
+
+    try {
+        const genreQuery = await controller.genre(req.query.genre);
+        response.success(req, res, genreQuery, 201);
+    } catch (error) {
+        response.error(req, res, error.message,  error);
+    }
+
+})
+
+
+router.get("/album", async (req, res) => {
+
+    try {
+        const albumQuery = await controller.album();
+        response.success(req, res, albumQuery, 201);
+    } catch (error) {
+        response.error(req, res, error.message,  error);
+    }
+
+})
+
+
 
 module.exports = router;

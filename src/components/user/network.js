@@ -12,7 +12,7 @@ require('../../strategies/jwt')
 const storage = multer.diskStorage({
     destination: (req, file, cb ) => cb(null, "public/files"),
     filename: (req, file, cb) => {
-      cb(null, file.originalname + '-' + Date.now() +
+      cb(null, file.name + '-' + Date.now() +
           path.extname(file.originalname))
     }
   })
@@ -24,16 +24,16 @@ router.get('/users', async(req, res) => {
         const users = await controller.getAllUsers()
         response.success(req, res, users, 201)
     } catch (error) {
-        response.error(req, res, error.message, 404, error)
+        response.error(req, res, error.message, error)
     }
 })
 
-router.get('/user-profile/:id',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.get('/user-profile/:id', async(req, res) => {
     try {
         const user = await controller.getUser(req.params.id)
         response.success(req, res, user, 201)
     } catch (error) {
-        response.error(req, res, error.message, 404, error)
+        response.error(req, res, error.message, error)
     }
 })
 
@@ -44,27 +44,27 @@ router.post('/sign-up',upload.single('image') ,async (req, res) => {
         const newUSer = await controller.createUser(name, email, password, birthdate, country,gender , req.file, req.headers.host, req.protocol)
         response.success(req, res, newUSer, 201)
     } catch (error) {
-        response.error(req, res, error.message, 500, error)
+        response.error(req, res, error.message,  error)
     }
 })
 
-router.put('/update/:id',passport.authenticate('jwt', {session: false}) ,upload.single('image') ,async(req, res) => {
+router.put('/update/:id', upload.single('image') ,async(req, res) => {
     try {
         const { name, email, password, birthdate, country, gender} = req.body
         
         const updatedUser = await controller.updateUser(name, email, password, birthdate, country, gender ,req.file ,req.params.id, req.headers.host, req.protocol)
         response.success(req, res, updatedUser, 201)
     } catch (error) {
-        response.error(req, res, error.message, 404, error)
+        response.error(req, res, error.message, error)
     }
 })
 
-router.delete('/delete/:id',passport.authenticate('jwt', {session: false}) ,async(req, res) => {
+router.delete('/delete/:id', async(req, res) => {
     try {
         const deletedUser = await controller.deleteUser(req.params.id)
         response.success(req, res, deletedUser, 201)
     } catch (error) {
-        response.error(req, res, error.message, 404, error)
+        response.error(req, res, error.message, error)
     }
 })
 
