@@ -15,7 +15,6 @@ const addSong = async(id, songs) => {
 const getSong = async(id) => {
     const user = await Model.findById({ _id: id })
     
-    console.log(user.favorites)
     return user.favorites
 }
 
