@@ -37,19 +37,8 @@ router.post('/login', (req, res, next) => {
                     next(error)
                 }
             })
-
-            const { _id: id, name, email } = user[0];
-                        
-            const payload = {
-                sub: id,
-                name,
-                email
-            }
-            
-            
-            const token = jwt.sign(payload, config.jwt_key,{
-                expiresIn: '30m'
-            });
+ 
+            const token = await controller.createToken(user)
 
             res.cookie('token', token, {
                 httpOnly: true,
@@ -57,7 +46,7 @@ router.post('/login', (req, res, next) => {
 
             }) 
             
-            return  response.success(req, res, { token, "System" : "User succesfully loged"})
+            return  response.success(req, res, { token, "System" : "User succesfully loged"}, 201)
 
         } catch (error) {
             next(error)
@@ -68,30 +57,24 @@ router.post('/login', (req, res, next) => {
 router.get('/google', passport.authenticate('google' , { scope: ['profile', 'email', 'openid']}))
 
 router.get('/google/callback', (req, res, next) => {
-    passport.authenticate('google', { session: false }, (error, user) => {
+    passport.authenticate('google', { session: false }, async (error, user) => {
         if(error || !user){
             throw new Error("User not found")
         }
     
-        const { _id: id, name, email } = user;
-                            
-        const payload = {
-            sub: id,
-            name,
-            email
-        }
-    
-        const token = jwt.sign(payload, config.jwt_key, {
-            expiresIn: '30m'
-        })
-    
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: false,
-        })
-    
-        return res.status(201).json({ token, "System message":"user succesfully logged in with google" })
+        if(user.gender){
+            const token = await controller.createToken(user)
 
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: false
+
+            })
+
+            response.success(req, res, { token, "System" : "User succesfully loged"}, 201)
+        }else{
+            res.redirect(201,`/api/auth/end-singup/${user._id}`)
+        }
         
     })(req, res, next)
 })
@@ -104,33 +87,37 @@ router.get('/facebook/callback', (req, res, next) => {
             throw new Error("user not found")
         }
     
-        const { _id: id, name, email } = user;
-                            
-        const payload = {
-            sub: id,
-            name,
-            email
+        if(user.gender){
+            const token = await controller.createToken(user)
+
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: false
+
+            })
+
+            response.success(req, res, { token, "System" : "User succesfully loged"}, 201)
+        }else{
+            res.redirect(201,`/api/auth/end-singup/${user._id}`)
         }
-    
-        const token = jwt.sign(payload, config.jwt_key, {
-            expiresIn: '30m'
-        })
-    
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: false,
-        })
-    
-        return res.status(201).json({ token, "System message":"user succesfully logged in with facebook" })
 
     })(req, res, next)
 })
 
-router.post('/end-singup/:id', passport.authenticate('jwt', {session: false}),upload.single('image') ,async(req, res) => {
+router.post('/end-singup/:id', upload.single('image') ,async(req, res) => {
     try {
+
         const { birthdate, country, gender } = req.body
         const userInfo = await controller.addExtraInfo(birthdate, country, gender, req.file , req.params.id, req.headers.host, req.protocol)
-        response.success(req, res, userInfo, 201)
+        
+        const token = await controller.createToken(userInfo)
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false,
+        })
+
+        response.success(req, res, {token, System: "You complete your singup"}, 201)
     } catch (error) {
         response.error(req, res, error.message, 404, error) 
     }
