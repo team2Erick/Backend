@@ -114,7 +114,7 @@ const passwordRecover = async(email, header, protocol) => {
             from: 'gonzalezomar645@gmail.com',
             to: user[0].email,
             subject: "Password Reset",
-            text: `Hi <strong> ${user[0].name} </strong> \n 
+            html: `Hi <strong> ${user[0].name} </strong> \n 
             <div align="center">
                 <img src="../assets/images/frame.png" alt="LogoCDAY" width="20%">
             </div>
