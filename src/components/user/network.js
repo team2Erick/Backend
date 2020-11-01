@@ -44,11 +44,7 @@ router.post('/sign-up',upload.single('image') ,async (req, res) => {
         const newUSer = await controller.createUser(name, email, password, birthdate, country,gender , req.file, req.headers.host, req.protocol)
         response.success(req, res, newUSer, 201)
     } catch (error) {
-<<<<<<< HEAD
         response.error(req, res, error.message, error)
-=======
-        response.error(req, res, error.message,  error)
->>>>>>> master
     }
 })
 
@@ -68,11 +64,7 @@ router.delete('/delete/:id', async(req, res) => {
         const deletedUser = await controller.deleteUser(req.params.id)
         response.success(req, res, deletedUser, 201)
     } catch (error) {
-<<<<<<< HEAD
         response.error(req, res, error.message,  error)
-=======
-        response.error(req, res, error.message, error)
->>>>>>> master
     }
 })
 
