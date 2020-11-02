@@ -105,29 +105,31 @@ const passwordRecover = async(email, header, protocol) => {
         let transporter = nodemailer.createTransport({
             service: "Gmail",
             auth: {
-                user: "cdaymusicapp20202@gmail.com",
+                user: "cdaymusicapp2020@gmail.com",
                 pass: config.password_email
             }
         })
         let link = `${protocol}://${header}/api/auth/reset/${user[0].PasswordToken}`
         let mailOptions = {
-            from: 'gonzalezomar645@gmail.com',
+            from: 'cdaymusicapp20202@gmail.com',
             to: user[0].email,
             subject: "Password Reset",
             html: `Hi <strong> ${user[0].name} </strong> \n 
             <div align="center">
-                <img src="../../assets/images/cday_2.jpg" alt="LogoCDAY" width="20%">
             </div>
             <p style="font-size:150%; text-align: center;">
-                Please click on the following link to reset your password. \n\n 
-                If you did not request this, please ignore this email and your password will remain unchanged.
+            Please click on the following link to reset your password. \n\n 
+            If you did not request this, please ignore this email and your password will remain unchanged.
             </p>
             <p style="text-align:center; font-size:110%;">
-                <strong ">Link</strong><br>                        
+            <strong ">Link</strong><br>                        
             </p>
             <p style="color: #fff; font-size: 18px; font-weight: 400; text-align: center; background: #005ba3; margin: 0 0 25px; overflow: hidden; padding: 20px; border-radius: 35px 35px 35px 35px; 
-            -moz-border-radius: 35px 35px 35px 35px; -webkit-border-radius: 35px 35px 35px 35px; border: 2px solid #743D40;"> ${link} </p> \n`
-
+            -moz-border-radius: 35px 35px 35px 35px; -webkit-border-radius: 35px 35px 35px 35px; border: 2px solid #743D40;"> ${link} </p> \n`,
+            text: `Hi ${user[0].name} , Please click on the following link to reset your password. 
+            If you did not request this, please ignore this email and your password will remain unchanged.
+            ${link} ` ,
+            
         }
 
         
