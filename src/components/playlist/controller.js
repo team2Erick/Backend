@@ -1,11 +1,15 @@
 const store = require('./store')
+const Model = require('../../store/models/user')
 
 const addFavorite = async (id, favorites) => {
     try {
         if(!favorites){
             throw new Error("Missing Data")
         }
-
+        const user = Model.findById({_id: id})
+        if(user.favorites.id === favorites){
+            throw new Error(error)
+        }
         const songs = await store.addSong(id, favorites)
         
         const finalResponse = {
