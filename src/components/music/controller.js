@@ -122,7 +122,7 @@ module.exports = {
         }
     },
 
-    async getHistory(user) {
+    async getHistory({user}) {
         try {
             return await store.getHistory(user)
         } catch (error) {
