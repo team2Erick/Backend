@@ -9,7 +9,8 @@ const mySchema = new Schema({
         ref: "User"
     },
     trackId: Number,
-    song: Object
+    song: Object,
+    timeStamp: Date
 })
 
 

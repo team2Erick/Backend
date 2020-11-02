@@ -120,6 +120,14 @@ module.exports = {
         } catch (error) {
             throw new Error(error)
         }
+    },
+
+    async getHistory(user) {
+        try {
+            return await store.getHistory(user)
+        } catch (error) {
+            throw new Error(error)
+        }
     }
 
 }
