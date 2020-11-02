@@ -14,8 +14,17 @@ router.get('/search', async (req, res) => {
 
 router.post('/play', async (req, res) => {
     try {
-        const addPlayQuery = await controller.addPlay({ user: req.body.userId, trackId: req.body.trackId, song: req.body.track });
+        const addPlayQuery = await controller.addPlay({ user: req.body.user, trackId: req.body.trackId, song: req.body.song });
         response.success(req, res, addPlayQuery, 201);
+    } catch (error) {
+        response.error(req, res, error.message, error);
+    }
+})
+
+router.get('/history', async (req, res) => {
+    try {
+        const getHistoryQuery = await controller.getHistory({ user: req.query.user });
+        response.success(req, res, getHistoryQuery, 201);
     } catch (error) {
         response.error(req, res, error.message, error);
     }
