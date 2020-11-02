@@ -105,18 +105,17 @@ const passwordRecover = async(email, header, protocol) => {
         let transporter = nodemailer.createTransport({
             service: "Gmail",
             auth: {
-                user: "cdaymusicapp20202@gmail.com",
+                user: "cdaymusicapp2020@gmail.com",
                 pass: config.password_email
             }
         })
         let link = `${protocol}://${header}/api/auth/reset/${user[0].PasswordToken}`
         let mailOptions = {
-            from: 'gonzalezomar645@gmail.com',
+            from: 'cdaymusicapp2020@gmail.com',
             to: user[0].email,
             subject: "Password Reset",
             html: `Hi <strong> ${user[0].name} </strong> \n 
             <div align="center">
-                <img src="https://imgur.com/ZXUuaH5" alt="LogoCDAY" width="20%">
             </div>
             <p style="font-size:150%; text-align: center;">
                 Please click on the following link to reset your password. \n\n 
