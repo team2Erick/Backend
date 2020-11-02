@@ -1,8 +1,5 @@
 const Model = require('../../store/models/user')
 
-
-
-
 const addSong = async(id, songs) => {
     const user = await Model.findById({ _id: id })
     

@@ -8,7 +8,16 @@ router.get('/search', async (req, res) => {
         const searchQuery = await controller.search(req.query.search);
         response.success(req, res, searchQuery, 201);
     } catch (error) {
-        response.error(req, res, error.message,  error);
+        response.error(req, res, error.message, error);
+    }
+})
+
+router.post('/play', async (req, res) => {
+    try {
+        const addPlayQuery = await controller.addPlay({ user: req.body.userId, trackId: req.body.trackId, song: req.body.track });
+        response.success(req, res, addPlayQuery, 201);
+    } catch (error) {
+        response.error(req, res, error.message, error);
     }
 })
 
@@ -36,7 +45,7 @@ router.get("/genre", async (req, res) => {
         const genreQuery = await controller.genre(req.query.genre);
         response.success(req, res, genreQuery, 201);
     } catch (error) {
-        response.error(req, res, error.message,  error);
+        response.error(req, res, error.message, error);
     }
 
 })
@@ -48,7 +57,7 @@ router.get("/album", async (req, res) => {
         const albumQuery = await controller.album();
         response.success(req, res, albumQuery, 201);
     } catch (error) {
-        response.error(req, res, error.message,  error);
+        response.error(req, res, error.message, error);
     }
 
 })

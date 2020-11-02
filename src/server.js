@@ -10,7 +10,6 @@ const config = require('./config/index')
 const DB = require('./store/index')
 
 DB(config.db_uri)
-
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({
