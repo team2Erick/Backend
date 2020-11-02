@@ -9,6 +9,7 @@ const playlistSchema = new Schema({
 })
 
 
+
 const mySchema = new Schema({
     name: String,
     email: String,
