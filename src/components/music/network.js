@@ -39,7 +39,7 @@ router.get('/history', async (req, res) => {
 router.get('/discover', async (req, res) => {
     try {
 
-        const discoverQuery = await controller.discoverQuery();
+        const discoverQuery = await controller.discover();
         response.success(req, res, discoverQuery, 201);
 
     } catch (error) {
