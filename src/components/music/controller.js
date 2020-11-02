@@ -4,12 +4,12 @@ const store = require("./store")
 module.exports = {
 
     async search(search) {
-        const search = await axios.get("https://api.deezer.com/search", {
+        const searchD = await axios.get("https://api.deezer.com/search", {
             params: {
                 q: search,
             }
         });
-        return search.data.data
+        return searchD.data.data
     },
 
     async discover() {
