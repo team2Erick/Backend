@@ -14,7 +14,11 @@ router.get('/search', async (req, res) => {
 
 router.post('/play', async (req, res) => {
     try {
-        const addPlayQuery = await controller.addPlay({ user: req.body.user, trackId: req.body.trackId, song: req.body.song });
+        const addPlayQuery = await controller.addPlay({
+            user: req.body.user,
+            trackId: req.body.trackId,
+            song: req.body.song
+        });
         response.success(req, res, addPlayQuery, 201);
     } catch (error) {
         response.error(req, res, error.message, error);
@@ -23,7 +27,9 @@ router.post('/play', async (req, res) => {
 
 router.get('/history', async (req, res) => {
     try {
-        const getHistoryQuery = await controller.getHistory({ user: req.query.user });
+        const getHistoryQuery = await controller.getHistory({
+            user: req.query.user
+        });
         response.success(req, res, getHistoryQuery, 201);
     } catch (error) {
         response.error(req, res, error.message, error);
@@ -33,15 +39,8 @@ router.get('/history', async (req, res) => {
 router.get('/discover', async (req, res) => {
     try {
 
-        var searchQuery = {}
-
-        if (req.query.userId) {
-
-        } else {
-            searchQuery = await controller.discover.global();
-        }
-
-        response.success(req, res, searchQuery, 201);
+        const discoverQuery = await controller.discoverQuery();
+        response.success(req, res, discoverQuery, 201);
 
     } catch (error) {
         response.error(req, res, error.message, error);

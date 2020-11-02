@@ -4,19 +4,19 @@ const store = require("./store")
 module.exports = {
 
     async search(search) {
-        const rearch = await axios.get("https://api.deezer.com/search", {
+        const search = await axios.get("https://api.deezer.com/search", {
             params: {
                 q: search,
             }
         });
-        return rearch.data.data
+        return search.data.data
     },
 
-    discover: {
+    async discover() {
 
-        async global() {
-
-        }
+        const discoverData = await axios.get("https://api.deezer.com/chart/0/tracks");
+        console.log(discoverData);
+        return discoverData.data.data
 
     },
 
@@ -122,7 +122,9 @@ module.exports = {
         }
     },
 
-    async getHistory({user}) {
+    async getHistory({
+        user
+    }) {
         try {
             return await store.getHistory(user)
         } catch (error) {
