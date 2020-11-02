@@ -14,10 +14,10 @@ module.exports = {
 
     async discover() {
 
-        const discoverData = await axios.get("https://api.deezer.com/chart/0/tracks");
-        console.log(discoverData);
-        return discoverData.data.data
-
+        const discoverDataPrimary = await axios.get("https://api.deezer.com/artist/27/top");
+        const discoverDataSec = await axios.get("https://api.deezer.com/chart/0/tracks");
+        const discoverDataTer = await axios.get("https://api.deezer.com/chart/2/tracks");
+        return [discoverDataPrimary.data.data, discoverDataSec.data.data, discoverDataTer.data.data]
     },
 
     async genre(genre) {

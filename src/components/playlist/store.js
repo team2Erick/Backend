@@ -21,7 +21,6 @@ const getSong = async (id) => {
     for (const track of user.favorites) {
 
         const response = await axios.get("https://api.deezer.com/track/" + track)
-        console.log(response.data);
         songs.push(response.data)
 
     }
