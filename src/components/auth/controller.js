@@ -105,7 +105,7 @@ const passwordRecover = async(email, header, protocol) => {
         let transporter = nodemailer.createTransport({
             service: "Gmail",
             auth: {
-                user: "cdaymusicapp20202@gmail.com",
+                user: "cdaymusicapp2020@gmail.com",
                 pass: config.password_email
             }
         })
