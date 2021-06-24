@@ -1,5 +1,6 @@
 # Backend for cday app 🖥
-![Imgur](https://imgur.com/KcGewZg)
+![Imgur](https://i.imgur.com/KcGewZg.png)
+
 
 _This is a Music website that allows users to play their music, create playlists, save their favorite songs, display to the user the news songs of their favorite artist as well as the most popular songs._
 
