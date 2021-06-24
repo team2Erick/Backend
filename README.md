@@ -1,5 +1,6 @@
 # Backend for cday app 🖥
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/Kf6aJEb" data-context="false" ><a href="//imgur.com/a/Kf6aJEb"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+[![Header](https://imgur.com/1p2AOwh "Header")]
+
 _This is a Music website that allows users to play their music, create playlists, save their favorite songs, display to the user the news songs of their favorite artist as well as the most popular songs._
 
 ## Installation and initialization
