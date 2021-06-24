@@ -1,5 +1,5 @@
 # Backend for cday app 🖥
-[![Header](https://s.imgur.com/min/embed.js "Header")](https://imgur.com/1p2AOwh)
+![Header](https://imgur.com/1p2AOwh)
 
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/1p2AOwh" data-context="false" ><a href="//imgur.com/a/1p2AOwh"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
